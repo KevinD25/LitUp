@@ -16,8 +16,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        auth = FirebaseAuth.getInstance()
+
         btn_logout.setOnClickListener {
             logout()
+
         }
     }
 
@@ -26,13 +29,17 @@ class MainActivity : AppCompatActivity() {
         if(auth.currentUser != null){
             currentUser = auth.currentUser as FirebaseUser
         }
-        else{
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
+        else
+            startLoginActivity()
     }
 
     public fun logout(){
         FirebaseAuth.getInstance().signOut()
+        startLoginActivity()
+    }
+
+    private fun startLoginActivity(){
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 }

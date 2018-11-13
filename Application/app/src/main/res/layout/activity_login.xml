@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.shado.litup.LoginActivity">
+    tools:context="com.example.shado.litup.LoginActivity"
+    android:padding="25sp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lbl_pass"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:hint="password"/>
 
         <Button
             android:id="@+id/btn_login"
