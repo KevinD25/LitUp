@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "804703603832",
+    "firebase_url": "https://litup-a02df.firebaseio.com",
+    "project_id": "litup-a02df",
+    "storage_bucket": "litup-a02df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804703603832:android:21c11d567e6e1826",
+        "android_client_info": {
+          "package_name": "com.example.shado.litup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804703603832-pvld28spkmrd2j4p41kjlihbpjol0k6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqZeCT-N7cA-SiaJlbIj2w53X45ihD9gQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
