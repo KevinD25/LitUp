@@ -48,6 +48,15 @@
             android:layout_below="@id/txt_pass"
             android:text="Login" />
 
+        <TextView
+            android:layout_alignBaseline="@id/btn_login"
+            android:layout_toLeftOf="@id/btn_login"
+            android:id="@+id/btn_to_register"
+            android:text="Create account"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 
 

@@ -3,7 +3,12 @@ package com.example.shado.litup
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.URLSpan
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -23,13 +28,18 @@ class LoginActivity : AppCompatActivity() {
         btn_login.setOnClickListener {
             login(txt_email.text.toString(), txt_pass.text.toString())
         }
+
+        setRegisterLink()
     }
 
-    override fun onStart() {
-        super.onStart()
-        if(auth.currentUser != null){
-            val currentUser = auth.currentUser
-            startMainactivity()
+    private fun setRegisterLink() {
+        val ssb = SpannableStringBuilder()
+        ssb.append(btn_to_register.text)
+        ssb.setSpan(URLSpan("http://www.google.com"), 0, ssb.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        btn_to_register.setText(ssb, TextView.BufferType.SPANNABLE)
+        btn_to_register.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -50,5 +60,13 @@ class LoginActivity : AppCompatActivity() {
     private fun startMainactivity(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(auth.currentUser != null){
+            val currentUser = auth.currentUser
+            startMainactivity()
+        }
     }
 }
