@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.shado.litup.LoginActivity"
-    android:padding="25sp">
+    android:padding="25sp"
+    tools:context="com.example.shado.litup.LoginActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -20,11 +20,11 @@
 
         <EditText
             android:id="@+id/txt_email"
-            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lbl_email"
-            android:hint="username@example.com" />
+            android:hint="username@example.com"
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/lbl_pass"
@@ -38,8 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lbl_pass"
-            android:inputType="textPassword"
-            android:hint="password"/>
+            android:hint="password"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btn_login"
@@ -50,13 +50,13 @@
             android:text="Login" />
 
         <TextView
+            android:id="@+id/btn_to_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/btn_login"
             android:layout_toLeftOf="@id/btn_login"
-            android:id="@+id/btn_to_register"
-            android:text="Create account"
             android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:text="Create account" />
 
     </RelativeLayout>
 

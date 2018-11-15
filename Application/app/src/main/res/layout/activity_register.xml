@@ -14,58 +14,57 @@
 
         <TextView
             android:id="@+id/lbl_email_register"
-            android:text="e-mail:"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="e-mail:" />
 
         <EditText
-            android:layout_below="@id/lbl_email_register"
             android:id="@+id/txt_email_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_email_register"
             android:hint="username@example.com"
-            android:inputType="textEmailAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:inputType="textEmailAddress" />
 
         <TextView
-            android:layout_below="@id/txt_email_register"
             android:id="@+id/lbl_pass_register"
-            android:text="Password:"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_email_register"
+            android:text="Password:" />
 
         <EditText
-            android:layout_below="@id/lbl_pass_register"
             android:id="@+id/txt_pass_register"
-            android:hint="password"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_pass_register"
+            android:hint="password"
+            android:inputType="textPassword" />
 
         <TextView
-            android:layout_below="@id/txt_pass_register"
             android:id="@+id/lbl_pass2_register"
-            android:text="Repeat password:"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_pass_register"
+            android:text="Repeat password:" />
 
         <EditText
-            android:layout_below="@id/lbl_pass2_register"
             android:id="@+id/txt_pass2_register"
-            android:hint="password"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_pass2_register"
+            android:hint="password"
+            android:inputType="textPassword" />
 
         <Button
-            android:layout_below="@id/txt_pass2_register"
-            android:layout_alignParentEnd="true"
-            android:text="Create Account"
             android:id="@+id/btn_register"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/txt_pass2_register"
+            android:text="Create Account" />
 
     </RelativeLayout>
-
 
 
 </RelativeLayout>
