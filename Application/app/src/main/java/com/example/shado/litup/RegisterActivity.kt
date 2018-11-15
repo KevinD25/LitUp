@@ -22,7 +22,20 @@ class RegisterActivity : AppCompatActivity() {
 
         btn_register.setOnClickListener {
             if(checkEqualPass()){
-                createUser(txt_email_register.text.toString(), txt_pass_register.text.toString())
+                if (!txt_email_register.text.toString().equals("") && !txt_pass_register.text.toString().equals("") && !txt_pass2_register.text.toString().equals("")) {
+                    if (android.util.Patterns.EMAIL_ADDRESS.matcher(txt_email_register.text.toString()).matches())
+                        createUser(txt_email_register.text.toString(), txt_pass_register.text.toString())
+                    else
+                        txt_email_register.setError("Please use a valid email address")
+                }
+                else{
+                    if(txt_email_register.text.toString().equals(""))
+                        txt_email_register.setError("email is blank!")
+                    if(txt_pass_register.text.toString().equals(""))
+                        txt_pass_register.setError("password is blank!")
+                    if(txt_pass2_register.text.toString().equals(""))
+                        txt_pass2_register.setError("password is blank!")
+                }
             }
             else
                 txt_pass2_register.setError("Passwords do not match!")

@@ -33,9 +33,9 @@ class LoginActivity : AppCompatActivity() {
                     txt_email.setError("Please use a valid email address")
             }
             else{
-                if(!txt_email.text.toString().equals(""))
+                if(txt_email.text.toString().equals(""))
                     txt_email.setError("email is blank!")
-                if(!txt_pass.text.toString().equals(""))
+                if(txt_pass.text.toString().equals(""))
                     txt_pass.setError("password is blank!")
             }
         }
