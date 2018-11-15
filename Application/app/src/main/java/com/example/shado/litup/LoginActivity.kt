@@ -21,17 +21,7 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btn_login.setOnClickListener {
-            auth.signInWithEmailAndPassword(txt_email.text.toString(), txt_pass.text.toString())
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            Log.d(TAG, "signInWithEmail:success")
-                            startMainactivity()
-                        } else {
-                            Log.w(TAG, "signInWithEmail:failure", task.exception)
-                            Toast.makeText(baseContext, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show()
-                        }
-                    }
+            login(txt_email.text.toString(), txt_pass.text.toString())
         }
     }
 
@@ -41,6 +31,20 @@ class LoginActivity : AppCompatActivity() {
             val currentUser = auth.currentUser
             startMainactivity()
         }
+    }
+
+    private fun login(email : String, password : String) {
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "signInWithEmail:success")
+                        startMainactivity()
+                    } else {
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Toast.makeText(baseContext, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show()
+                    }
+                }
     }
 
     private fun startMainactivity(){
