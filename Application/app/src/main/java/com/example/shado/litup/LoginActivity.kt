@@ -26,9 +26,19 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btn_login.setOnClickListener {
-            login(txt_email.text.toString(), txt_pass.text.toString())
+            if (!txt_email.text.toString().equals("") && !txt_pass.text.toString().equals("")) {
+                if (android.util.Patterns.EMAIL_ADDRESS.matcher(txt_email.text.toString()).matches())
+                    login(txt_email.text.toString(), txt_pass.text.toString())
+                else
+                    txt_email.setError("Please use a valid email address")
+            }
+            else{
+                if(!txt_email.text.toString().equals(""))
+                    txt_email.setError("email is blank!")
+                if(!txt_pass.text.toString().equals(""))
+                    txt_pass.setError("password is blank!")
+            }
         }
-
         setRegisterLink()
     }
 
