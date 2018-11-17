@@ -10,28 +10,48 @@ import android.widget.TableLayout
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.ViewGroup
 import android.widget.TableRow
-import com.example.shado.litup.R.id.tableRow
+//import com.example.shado.litup.R.id.tableRow
 import kotlinx.android.synthetic.main.activity_custom_screen.*
+import android.widget.LinearLayout
+import android.R.attr.y
+import android.R.attr.x
+import android.graphics.Point
+import android.view.Display
+import android.R.attr.button
+import android.util.Log
+import junit.framework.Test
+import java.util.logging.Logger
+import android.os.Build
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.view.ViewTreeObserver
+import android.widget.TextView
+
+
+
+
 
 
 class CustomScreenActivity : AppCompatActivity() {
 
     val ROWS = 10
     val COLUMNS = 5
-    val tableLayout by lazy { TableLayout(this) }
+    //val tableLayout by lazy { TableLayout(this) }
+    var width : Int = 0
+    var height : Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_screen)
-
-
-        generateButtonRow()
 
         generateRows(ROWS, COLUMNS)
 
     }
 
     private fun generateRows(rows: Int, cols: Int) {
+        //val LL_Outer = findViewById(R.id.buttonZone) as LinearLayout
+        var tableLayout = findViewById(R.id.buttonZone) as TableLayout
+
         for (i in 0 until rows) {
 
             val row = TableRow(this)
@@ -44,53 +64,41 @@ class CustomScreenActivity : AppCompatActivity() {
                 button.apply {
                     layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                             TableRow.LayoutParams.WRAP_CONTENT)
+
                     /*TODO add implementation*/
                 }
+                //button.layoutParams = LinearLayout.LayoutParams(width / 16 , ((height / 10) * 6)/16)
                 row.addView(button)
+                getScreenSize()
+                Logger.getLogger(Test::class.java.name).warning(" width " + width.toString() + " | height " + height.toString())
+
+
             }
             tableLayout.addView(row)
         }
-        linearLayout.addView(tableLayout)
+        //LL_Outer.addView(tableLayout)
 
 
     }
 
-    private fun generateButtonRow() {
-        val tableLayout:TableLayout = findViewById(R.id.tableLayout) as TableLayout
-        var tableRow = TableRow(this)
-        val buttonList : MutableList<Button> = arrayListOf()
-        //val rowList : MutableList<MutableList<Button>> = arrayListOf()
-        val matrixSize:Int = 16
-        for (i in 1..matrixSize) {
-            val button = Button(this)
-            button.layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT)
-            ResourcesCompat.getDrawable(getResources(), R.drawable.buttonshape, null);
-            button.setOnClickListener({
-                changeColor()
-            })
-            buttonList.add(button)
+    private fun getScreenSize() {
+        val LL_Outer = findViewById(R.id.buttonZone) as LinearLayout
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        width = size.x
+        height = size.y
 
-        }
 
-        for(item  in buttonList){
-            tableRow = TableRow(this)
-            val lp = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT)
-            tableRow.setLayoutParams(lp)
-            tableRow.addView(item)
-
-        }
-
-        for(item in buttonList){
-            tableLayout.addView(tableRow)
-        }
-
+        //viewHeight = LL_Outer.height
     }
+
 
     private fun changeColor() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    private fun generateButton() {
+    /*private fun generateButton() {
         val constraintLayout = findViewById(R.id.constraintLayout) as ConstraintLayout
         val button = Button(this)
         button.layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
@@ -101,5 +109,5 @@ class CustomScreenActivity : AppCompatActivity() {
         button.setBackgroundColor(Color.GREEN)
         button.setTextColor(Color.RED)
         constraintLayout.addView(button);
-    }
+    }*/
 }
