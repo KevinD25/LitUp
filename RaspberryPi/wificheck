@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if !(wpa_cli -i "wlan0" status | grep 'ip_address' >/dev/null)
+then
+	echo "No wifi connection found"
+else
+	echo "wifi found"
+fi
+
+createHotSpot()
+{
+	ip a add 192.168.50.5/24 brd + dev "$wifidev"
+	ip link set dev "wlan0" up
+	dhcpcd -k "wlan0" >/dev/null 2>&1
+    	iptables -t nat -A POSTROUTING -o "eth0" -j MASQUERADE
+    	iptables -A FORWARD -i "eth0" -o "wlan0" -m state --state RELATED,ESTABLISHED -j ACCEPT
+    	iptables -A FORWARD -i "wlan0" -o "eth0" -j ACCEPT
+    	systemctl start dnsmasq
+    	systemctl start hostapd
+}
