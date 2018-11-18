@@ -1,29 +1,21 @@
 package com.example.shado.litup
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.Button
-import android.widget.TableLayout
-import android.view.ViewGroup
-import android.widget.TableRow
-//import com.example.shado.litup.R.id.tableRow
-import android.widget.LinearLayout
+import android.annotation.SuppressLint
 import android.graphics.Point
-import junit.framework.Test
-import java.util.logging.Logger
+import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
+import android.widget.*
 
 
 class CustomScreenActivity : AppCompatActivity() {
 
-    val ROWS = 10
-    val COLUMNS = 5
-    //val tableLayout by lazy { TableLayout(this) }
+
     var breedte : Int = 0
     var hoogte : Int = 0
-
-    val amountOfButtons : Int = 16
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +26,7 @@ class CustomScreenActivity : AppCompatActivity() {
         buttonzone.addView(getTableWithAllRowsStretchedView())
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun getTableWithAllRowsStretchedView() : LinearLayout {
 
         val linearLayout = LinearLayout(this)
@@ -56,16 +49,22 @@ class CustomScreenActivity : AppCompatActivity() {
                     TableLayout.LayoutParams.MATCH_PARENT, 1.0f)
 
             for (j in 0..15) {
-                val button = Button(this)
-                /*val param = button.layoutParams as TableRow.LayoutParams
-                param.setMargins(0,0,0,0)
-                param.width = breedte/16
-                param.height = ((hoogte/10)*7)/16*/
-                button.layoutParams = TableRow.LayoutParams(breedte/16, ((hoogte/10)*7)/16)
-                //button.layoutParams = param
+                val button = ImageButton(this)
+                button.layoutParams = TableRow.LayoutParams(breedte/16, ((hoogte/10)*7)/14, 1.0f)
 
-                tableRow.addView(button)
-            }
+                button.setOnTouchListener(object : View.OnTouchListener {
+                    override fun onTouch(v: View, m: MotionEvent): Boolean {
+                        // Perform tasks here
+                        changeColor(button)
+                       /* var location : IntArray = intArrayOf(0,0)
+
+                        button.getLocationOnScreen(location);*/
+                        return true
+                    }
+                })
+
+                    tableRow.addView(button)
+                }
             tableLayout.addView(tableRow)
         }
         linearLayout.addView(tableLayout)
@@ -84,7 +83,8 @@ class CustomScreenActivity : AppCompatActivity() {
         //viewHeight = LL_Outer.hoogte
     }
 
-    private fun changeColor() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun changeColor(button:ImageButton) {
+        val colorValue = ContextCompat.getColor(baseContext, R.color.colorPrimaryDark)
+        button.setBackgroundColor(colorValue)
     }
 }
