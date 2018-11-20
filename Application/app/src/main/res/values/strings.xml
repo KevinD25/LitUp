@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LitUp</string>
+    <string name="title_activity_device_setup">DeviceSetupActivity</string>
 </resources>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.shado.litup.DeviceSetupActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="25sp">
+
+        <TextView
+            android:id="@+id/lbl_ssid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ssid:" />
+
+        <EditText
+            android:id="@+id/txt_ssid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_ssid"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/lbl_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_ssid"
+            android:text="Password:" />
+
+        <EditText
+            android:id="@+id/txt_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_pass"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/lbl_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_pass"
+            android:text="Location:" />
+
+        <EditText
+            android:id="@+id/txt_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_location"
+            android:inputType="text" />
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_location"
+            android:orientation="horizontal"
+            android:id="@+id/radiogroup">
+
+            <RadioButton android:id="@+id/radio_fahrenheit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°F"/>
+
+            <RadioButton android:id="@+id/radio_celcius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°C"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/radiogroup"
+            android:text="Send to device" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

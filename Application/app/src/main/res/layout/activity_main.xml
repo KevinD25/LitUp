@@ -12,6 +12,8 @@
         android:text="Hello World!"
         android:layout_centerInParent="true"/>
 
+
+
     <Button
         android:id="@+id/btn_logout"
         android:text="logout"
