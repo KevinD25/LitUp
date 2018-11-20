@@ -34,6 +34,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.google.firebase:firebase-core:16.0.5'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.facebook.android:facebook-android-sdk:4.38.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
