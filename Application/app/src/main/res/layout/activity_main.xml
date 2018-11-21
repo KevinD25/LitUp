@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.shado.litup.MainActivity">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_centerInParent="true"/>
-
-
+        android:id="@+id/btn_devicesetup"
+        android:text="Device setup"
+        android:layout_centerInParent="true" />
 
     <Button
         android:id="@+id/btn_logout"
