@@ -16,6 +16,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        btn_devicesetup.setOnClickListener{
+            val intent = Intent(this, DeviceSetupActivity::class.java)
+            startActivity(intent)
+        }
+
         auth = FirebaseAuth.getInstance()
 
         btn_logout.setOnClickListener {
