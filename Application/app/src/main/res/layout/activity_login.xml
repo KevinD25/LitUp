@@ -41,6 +41,16 @@
             android:hint="password"
             android:inputType="textPassword" />
 
+        <com.facebook.login.widget.LoginButton
+            android:layout_below="@id/btn_login"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/btn_fb_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
+
         <Button
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
