@@ -10,8 +10,6 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
-import me.priyesh.chroma.ChromaDialog
-import me.priyesh.chroma.ColorMode
 
 
 class CustomScreenActivity : AppCompatActivity() {
