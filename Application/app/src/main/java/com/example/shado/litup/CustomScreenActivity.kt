@@ -1,6 +1,7 @@
 package com.example.shado.litup
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -9,6 +10,8 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
+import me.priyesh.chroma.ChromaDialog
+import me.priyesh.chroma.ColorMode
 
 
 class CustomScreenActivity : AppCompatActivity() {
@@ -16,6 +19,7 @@ class CustomScreenActivity : AppCompatActivity() {
 
     var breedte : Int = 0
     var hoogte : Int = 0
+    lateinit var kleur : Color
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,5 +90,9 @@ class CustomScreenActivity : AppCompatActivity() {
     private fun changeColor(button:ImageButton) {
         val colorValue = ContextCompat.getColor(baseContext, R.color.colorPrimaryDark)
         button.setBackgroundColor(colorValue)
+    }
+
+    fun onClickColor(view:View){
+
     }
 }
