@@ -35,22 +35,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        try {
-            val info = packageManager.getPackageInfo(
-                    "com.example.shado",
-                    PackageManager.GET_SIGNATURES)
-            for (signature in info.signatures) {
-                val md = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-
-        } catch (e: NoSuchAlgorithmException) {
-
-        }
-
-
         auth = FirebaseAuth.getInstance()
         setLoginFB()
 
@@ -114,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onError(error: FacebookException) {
                 Log.d(TAG, "facebook:onError", error)
-                // ...
+                Toast.makeText(baseContext, "Authentication via Facebook failed", Toast.LENGTH_LONG).show()
             }
         })
 
