@@ -5,6 +5,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        androidconfig {
+            keyAlias 'androiddebugkey'
+            storeFile file('C:/Users/jorre/.android/debug.keystore')
+            storePassword 'android'
+            keyPassword 'android'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.shado.litup"
@@ -19,11 +27,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.androidconfig
+        }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
