@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using DataLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,12 @@ namespace LitUp_API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Weather()
+        public async Task<IActionResult> Weather()
         {
-            return Ok("test");
+            ForecastResult result = await weatherService.forecastAntwerp();
+            if (result != null)
+                return Ok(result);
+            return BadRequest("Error getting data from OpenWeather");
         }
     }
 }
