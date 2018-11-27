@@ -90,13 +90,9 @@ class CustomScreenActivity : AppCompatActivity() {
         display.getSize(size)
         breedte = size.x
         hoogte = size.y
-
-
-        //viewHeight = LL_Outer.hoogte
     }
 
     private fun changeColor(button:ImageButton) {
-
         button.setBackgroundColor(mColor)
     }
 
@@ -132,7 +128,6 @@ class CustomScreenActivity : AppCompatActivity() {
             if(buttonBackground is ColorDrawable)
             {
                 kleurID = (buttonBackground as ColorDrawable).color;
-                //You now have a background color.
                 hexColor = String.format("#%06X", 0xFFFFFF and kleurID)
             }
             else{
