@@ -3,6 +3,7 @@ package com.example.shado.litup
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Point
+import android.net.sip.SipSession
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,10 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
+import kotlinx.android.synthetic.main.activity_custom_screen.*
+import me.priyesh.chroma.ChromaDialog
+import me.priyesh.chroma.ColorMode
+import me.priyesh.chroma.ColorSelectListener
 
 
 class CustomScreenActivity : AppCompatActivity() {
@@ -17,7 +22,7 @@ class CustomScreenActivity : AppCompatActivity() {
 
     var breedte : Int = 0
     var hoogte : Int = 0
-    lateinit var kleur : Color
+    private var mColor: Int = -65536
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +31,9 @@ class CustomScreenActivity : AppCompatActivity() {
 
         var buttonzone = findViewById(R.id.buttonZone) as LinearLayout
         buttonzone.addView(getTableWithAllRowsStretchedView())
+
+        updateColorText(mColor)
+        updateColorButton(mColor)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -86,11 +94,31 @@ class CustomScreenActivity : AppCompatActivity() {
     }
 
     private fun changeColor(button:ImageButton) {
-        val colorValue = ContextCompat.getColor(baseContext, R.color.colorPrimaryDark)
-        button.setBackgroundColor(colorValue)
+
+        button.setBackgroundColor(mColor)
     }
 
-    fun onClickColor(view:View){
+    private fun updateColorButton(color:Int){
+        btnKleur.setBackgroundColor(color)
+    }
 
+    private fun updateColorText(color:Int){
+        val hexColor = String.format("#%06X", 0xFFFFFF and color)
+        txtColor.setText(hexColor)
+    }
+
+    fun onClickColorPicker(view:View){
+         ChromaDialog.Builder()
+                .initialColor(mColor)
+                .colorMode(ColorMode.RGB) // There's also ARGB and HSV
+                .onColorSelected(object : ColorSelectListener {
+                    override fun onColorSelected(color: Int) {
+                        updateColorButton(color)
+                        updateColorText(color)
+                        mColor = color
+                    }
+                })
+        .create()
+                .show(getSupportFragmentManager(), "ChromaDialog");
     }
 }
