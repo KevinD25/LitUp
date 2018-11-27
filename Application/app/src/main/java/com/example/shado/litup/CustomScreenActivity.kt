@@ -3,10 +3,12 @@ package com.example.shado.litup
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
 import android.net.sip.SipSession
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -23,6 +25,7 @@ class CustomScreenActivity : AppCompatActivity() {
     var breedte : Int = 0
     var hoogte : Int = 0
     private var mColor: Int = -65536
+    val buttons: MutableList<ImageButton> = mutableListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,12 +69,11 @@ class CustomScreenActivity : AppCompatActivity() {
                     override fun onTouch(v: View, m: MotionEvent): Boolean {
                         // Perform tasks here
                         changeColor(button)
-                       /* var location : IntArray = intArrayOf(0,0)
-
-                        button.getLocationOnScreen(location);*/
                         return true
                     }
                 })
+
+                    buttons.add(button)
 
                     tableRow.addView(button)
                 }
@@ -120,5 +122,24 @@ class CustomScreenActivity : AppCompatActivity() {
                 })
         .create()
                 .show(getSupportFragmentManager(), "ChromaDialog");
+    }
+
+    fun onClickTest(view:View){
+        var kleurID:Int = 0
+        var hexColor: String
+        for(item in buttons){
+            var buttonBackground = item.background;
+            if(buttonBackground is ColorDrawable)
+            {
+                kleurID = (buttonBackground as ColorDrawable).color;
+                //You now have a background color.
+                hexColor = String.format("#%06X", 0xFFFFFF and kleurID)
+            }
+            else{
+                hexColor = "#000000"
+            }
+
+            Log.e("KLEUR", hexColor.toString())
+        }
     }
 }
