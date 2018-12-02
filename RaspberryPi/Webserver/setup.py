@@ -19,6 +19,7 @@ def index():
 		timezone = request.args.get('timezone', timezone)
 		city = request.args.get('city', city)
 		temp = request.args.get('temp', temp)
+		print(ssid + " " + passwd + " " + timezone + " " + city + " " + temp)
 		f = open("/etc/wpa_supplicant/wpa_supplicant.conf", "a")
 		if not passwd:
 			f.write("network={ \r\n")
