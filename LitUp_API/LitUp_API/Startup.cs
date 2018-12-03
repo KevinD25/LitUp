@@ -34,11 +34,12 @@ namespace LitUp_API
             );
 
             services.AddScoped<WeatherService>();
+            services.AddScoped<UserService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, LitUpContext context)
         {
             if (env.IsDevelopment())
             {
@@ -48,6 +49,8 @@ namespace LitUp_API
             {
                 app.UseHsts();
             }
+
+            DbInitializer.Initialize(context);
 
             app.UseHttpsRedirection();
             app.UseMvc();
