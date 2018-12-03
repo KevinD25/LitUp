@@ -58,6 +58,23 @@
             android:clickable="true"
             android:text="Create account" />
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_google_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/btn_login" />
+
+        <!--<Button
+            android:layout_below="@id/btn_login"
+            android:layout_alignParentEnd="true"
+            android:background="#dd4b39"
+            android:textColor="#ffffff"
+            android:id="@+id/btn_google_login"
+            android:text="Login with google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />-->
+
     </RelativeLayout>
 
 
