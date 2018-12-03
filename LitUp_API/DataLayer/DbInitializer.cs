@@ -17,7 +17,7 @@ namespace DataLayer
                 Settings s1 = new Settings()
                 {
                     Brightness = 50,
-                    Wake_SleepTime = { 10,11 },
+                    Wake_SleepTime = { new TimeSpan(10, 30, 00), new TimeSpan(11, 00, 00) },
                     Location = "Antwerp",
                     Unit = 'C'
                 };

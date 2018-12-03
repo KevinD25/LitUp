@@ -7,7 +7,7 @@ namespace DataLayer.Model
     public class Settings
     {
         public int Brightness { get; set; }
-        public ICollection<int> Wake_SleepTime { get; set; }
+        public ICollection<TimeSpan> Wake_SleepTime { get; set; }
         public string Location { get; set; }
         public char Unit { get; set; }
 
