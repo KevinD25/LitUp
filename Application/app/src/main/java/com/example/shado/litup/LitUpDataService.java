@@ -9,6 +9,6 @@ import retrofit2.http.Path;
  */
 
 public interface LitUpDataService {
-    @GET("settings/{id}")
+    @GET("user/settings/{id}")
     Call<Settings>getSettings(@Path("id") int id);
 }
