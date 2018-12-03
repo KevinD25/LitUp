@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using DataLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,19 @@ namespace LitUp_API.Controllers
         public UserController(UserService userService)
         {
             this.userService = userService;
+        }
+
+
+        [Route("settings/{id}")]
+        [HttpGet]
+        public IActionResult settings(int id)
+        {
+            Settings settings = userService.getSettings(id);
+            if (settings != null)
+            {
+                return Ok(settings);
+            }
+            else return NotFound();
         }
     }
 }
