@@ -32,6 +32,8 @@
     },
     "IIS": {
       "commandName": "IIS",
+      "launchBrowser": true,
+      "launchUrl": "/api/weather",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
