@@ -22,7 +22,7 @@ namespace LitUp_API.Controllers
         [HttpGet]
         public async Task<IActionResult> Weather()
         {
-            ForecastResult result = await weatherService.forecastAntwerp();
+            ReturnData result = await weatherService.forecastAntwerp();
             if (result != null)
                 return Ok(result);
             return BadRequest("Error getting data from OpenWeather");
