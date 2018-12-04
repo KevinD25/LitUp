@@ -1,5 +1,7 @@
 package com.example.shado.litup;
 
+import io.reactivex.Observable;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -10,5 +12,5 @@ import retrofit2.http.Path;
 
 public interface LitUpDataService {
     @GET("user/settings/{id}")
-    Call<Settings>getSettings(@Path("id") int id);
+    Observable<Settings>getSettings(@Path("id") int id);
 }
