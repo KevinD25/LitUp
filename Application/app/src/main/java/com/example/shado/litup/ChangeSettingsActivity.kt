@@ -40,7 +40,7 @@ class ChangeSettingsActivity : AppCompatActivity() {
 
         btn_save.setOnClickListener{
             var city = txt_changecity.text
-            var brightness = lbl_brightness.text
+            var brightness = lbl_brightnessvalue.text
             var sleepTime = txt_sleep.text
             var wakeTime = txt_wake.text
 
