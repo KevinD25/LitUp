@@ -9,9 +9,14 @@
     <TextView
         android:id="@+id/lbl_currentSettings"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_centerInParent="true"/>
+        android:id="@+id/btn_devicesetup"
+        android:text="Device setup"
+        android:layout_centerInParent="true" />
 
     <Button
         android:id="@+id/btn_logout"
@@ -20,5 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/btn_changesettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_devicesetup"
+        android:text="change settings"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

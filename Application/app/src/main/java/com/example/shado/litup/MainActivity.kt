@@ -26,6 +26,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        btn_devicesetup.setOnClickListener{
+            val intent = Intent(this, DeviceSetupActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_changesettings.setOnClickListener {
+            val intent = Intent(this, ChangeSettingsActivity::class.java)
+            startActivity(intent)
+        }
+
         auth = FirebaseAuth.getInstance()
 
         disposable = service.getSettings(1).subscribeOn(Schedulers.io())
