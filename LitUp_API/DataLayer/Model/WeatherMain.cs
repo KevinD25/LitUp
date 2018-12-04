@@ -7,6 +7,6 @@ namespace DataLayer.Model
     public class WeatherMain
     {
         public double Temp { get; set; }
-        public double Humidity { get; set; }
+        //public double Humidity { get; set; }
     }
 }

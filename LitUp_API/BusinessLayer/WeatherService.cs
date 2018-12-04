@@ -13,7 +13,7 @@ namespace BusinessLayer
     {
         private readonly LitUpContext context;
         private string apiKey = "2c165f1b7fbd650cf068827adc8eb952";
-        private int count = 4;
+        private int count = 2;
 
         public WeatherService(LitUpContext context)
         {
