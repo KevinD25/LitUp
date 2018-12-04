@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_changesettings.setOnClickListener {
+            val intent = Intent(this, ChangeSettingsActivity::class.java)
+            startActivity(intent)
+        }
+
         auth = FirebaseAuth.getInstance()
 
         btn_logout.setOnClickListener {

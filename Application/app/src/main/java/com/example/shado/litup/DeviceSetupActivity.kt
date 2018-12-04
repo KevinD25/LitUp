@@ -29,7 +29,7 @@ class DeviceSetupActivity : AppCompatActivity(){
             var passwd = txt_pass.text
             var city = txt_city.text
             var temp = ""
-            if (radiogroup.checkedRadioButtonId == 2131230856) {
+            if (radiogroup.checkedRadioButtonId == 2131230855) {
                 temp = "C"
             } else if (radiogroup.checkedRadioButtonId == -1) {
                 temp = ""
