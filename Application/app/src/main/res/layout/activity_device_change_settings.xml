@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.shado.litup.ChangeSettingsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="15sp">
+        <LinearLayout
+        android:id="@+id/layout_sleep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/lbl_sleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="sleep time: " />
+
+            <EditText
+                android:id="@+id/txt_sleeppicked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:editable="false"
+                android:layout_toRightOf="@id/lbl_sleep"
+                android:text="22:00" />
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_wake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_sleep">
+            <TextView
+                android:id="@+id/lbl_wake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="wake up time: " />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_wake"
+                android:editable="false"
+                android:text="08:00"
+                android:clickable="true"
+                android:layout_toRightOf="@id/lbl_wake"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lbl_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_below="@id/layout_wake"
+            android:text="City:" />
+
+        <EditText
+            android:id="@+id/txt_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_city"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lbl_brightness"
+            android:textSize="20sp"
+            android:text= "brightness: "
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/txt_city"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lbl_brightnessvalue"
+            android:textSize="20sp"
+            android:layout_below="@id/txt_city"
+            android:layout_toRightOf="@id/lbl_brightness"
+            android:text="50"/>
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekbar"
+            android:max="100"
+            android:progress="50"
+            android:layout_below="@id/lbl_brightness"
+            android:layout_marginTop="15dp"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
