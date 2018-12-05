@@ -14,9 +14,6 @@ for f in list:
 	print(round((f["temp"] - 273), 1))
 	print(f["time"])
 	if f["weather"] == Rain:
-		p = multiprocessing.Process(target=showGifs, name="showGifs", args=("cloud-rain.gif",))
-		p.start()
+		showGifs("cloud-rain.gif")
 		time.sleep(4)
-		p.terminate()
-		p.join
 file.close()
