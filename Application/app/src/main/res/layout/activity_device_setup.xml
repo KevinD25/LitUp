@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.shado.litup.DeviceSetupActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="15sp">
+
+        <TextView
+            android:id="@+id/lbl_ssid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ssid:" />
+
+        <EditText
+            android:id="@+id/txt_ssid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_ssid"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/lbl_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_ssid"
+            android:text="Password:" />
+
+        <EditText
+            android:id="@+id/txt_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_pass"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/lbl_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_pass"
+            android:text="City:" />
+
+        <EditText
+            android:id="@+id/txt_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_city"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/lbl_timezone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_city"
+            android:text="Timezone:" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_timezone"
+            android:background="@android:drawable/btn_dropdown"
+            android:entries="@array/city_list"
+            android:layout_below="@id/lbl_timezone"/>
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinner_timezone"
+            android:orientation="horizontal"
+            android:id="@+id/radiogroup">
+
+            <RadioButton android:id="@+id/radio_fahrenheit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°F"/>
+
+            <RadioButton android:id="@+id/radio_celcius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°C"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/radiogroup"
+            android:text="Send to device" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lbl_response"
+            android:layout_below="@id/btn_send"
+            android:paddingTop="30dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
