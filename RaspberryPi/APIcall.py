@@ -13,7 +13,7 @@ for f in list:
 	print(f["weatherDetail"])
 	print(round((f["temp"] - 273), 1))
 	print(f["time"])
-	if f["weather"] == rain:
+	if f["weather"] == Rain:
 		p = multiprocessing.Process(target=showGifs, name="showGifs", args=("cloud-rain.gif",))
 		p.start()
 		time.sleep(4)
