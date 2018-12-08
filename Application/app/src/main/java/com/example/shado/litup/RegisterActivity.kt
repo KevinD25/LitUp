@@ -21,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btn_register.setOnClickListener {
-            if(checkEqualPass()){
+            if(checkEqualPass(txt_pass_register.text.toString(),txt_pass2_register.text.toString())){
                 if (!txt_email_register.text.toString().equals("") && !txt_pass_register.text.toString().equals("") && !txt_pass2_register.text.toString().equals("")) {
                     if (android.util.Patterns.EMAIL_ADDRESS.matcher(txt_email_register.text.toString()).matches())
                         createUser(txt_email_register.text.toString(), txt_pass_register.text.toString())
@@ -56,8 +56,8 @@ class RegisterActivity : AppCompatActivity() {
                 }
     }
 
-    private fun checkEqualPass() : Boolean {
-        if (txt_pass_register.text.toString().equals(txt_pass2_register.text.toString()))
+    fun checkEqualPass(pass1 : String, pass2 : String) : Boolean {
+        if (pass1.equals(pass2))
             return true
         return false
     }
