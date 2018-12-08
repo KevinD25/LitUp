@@ -4,10 +4,12 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
+import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
     private var TAG : String = "LoginActivity: "
@@ -40,6 +42,13 @@ class RegisterActivity : AppCompatActivity() {
             else
                 txt_pass2_register.setError("Passwords do not match!")
         }
+
+        txt_pass_register.setOnFocusChangeListener { view, b ->
+            if(!checkPassValid(txt_pass_register.text.toString())) {
+                txt_pass_register.setError("Password must include at least one upper case, one lowercase one number and one special character")
+                btn_register.isEnabled = false
+            }else btn_register.isEnabled = true
+        }
     }
 
     private fun createUser(email: String, password: String) {
@@ -60,6 +69,16 @@ class RegisterActivity : AppCompatActivity() {
         if (pass1.equals(pass2))
             return true
         return false
+    }
+
+    fun checkPassValid(pass : String) : Boolean{
+        if(pass.length >= 8){
+            var PATTERN_ = "(?=.*[0-9]+)(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*[@#\\$%^&+=!]+).*"
+            var pattern = Pattern.compile(PATTERN_)
+            if(pattern.matcher(pass).matches())
+                return true
+            else return false
+        }else return false
     }
 
     private fun startMainactivity(){
