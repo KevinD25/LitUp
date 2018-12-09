@@ -1,5 +1,12 @@
 package com.example.shado.litup
 
+import android.content.Intent
+import android.test.mock.MockContext
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthProvider
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
@@ -10,10 +17,12 @@ import org.junit.Before
 class RegisterUnitTest {
 
     lateinit var activity : RegisterActivity
+    val context = MockContext()
 
     @Before
     fun setup(){
-        activity = RegisterActivity()
+        activity = spy(RegisterActivity())
+        activity.auth = mock()
     }
     @Test
     fun equalPassCorrect(){
@@ -48,4 +57,18 @@ class RegisterUnitTest {
             assertTrue(result)
         }
     }
+/*
+    @Test
+    fun createNewUserSuccesCallback(){
+        doAnswer {
+            val task : Task<AuthResult> =
+            return@doAnswer task
+        }.whenever(activity.auth).createUserWithEmailAndPassword("newUser@mail.com","Avalid!Pass123")
+
+
+        activity.createUser("newUser@mail.com", "Avalid!Pass123")
+
+
+        verify(activity).startActivity(Intent(context, MainActivity::class.java))
+    }*/
 }
