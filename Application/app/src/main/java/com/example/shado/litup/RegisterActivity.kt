@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.regex.Pattern
 
-class RegisterActivity : AppCompatActivity() {
+open class RegisterActivity : AppCompatActivity() {
     private var TAG : String = "LoginActivity: "
 
     private lateinit var auth: FirebaseAuth

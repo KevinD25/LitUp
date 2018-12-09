@@ -22,7 +22,6 @@ class RegisterUnitTest {
     @Before
     fun setup(){
         activity = spy(RegisterActivity())
-        activity.auth = mock()
     }
     @Test
     fun equalPassCorrect(){
