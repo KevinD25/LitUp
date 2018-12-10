@@ -13,14 +13,14 @@ namespace BusinessLayer
     {
         private readonly LitUpContext context;
         private string apiKey = "2c165f1b7fbd650cf068827adc8eb952";
-        private int count = 4;
+        private int count = 2;
 
         public WeatherService(LitUpContext context)
         {
             this.context = context;
         }
 
-        public async Task<ForecastResult> forecastAntwerp()
+        public async Task<ReturnData> forecastAntwerp()
         {
             using (var client = new HttpClient())
             {
@@ -30,13 +30,30 @@ namespace BusinessLayer
                     var response = await client.GetAsync($"/data/2.5/forecast?q=antwerp&cnt={count}&appid={apiKey}");
                     response.EnsureSuccessStatusCode();
                     var stringResult = await response.Content.ReadAsStringAsync();
-                    var forecast = JsonConvert.DeserializeObject<ForecastResult>(stringResult);
+                    var forecast = getData(stringResult);
                     
                     return forecast;
                 }catch (HttpRequestException e)
                 {
                     return null;
                 }
+            }
+        }
+        public ReturnData getData(string stringResult)
+        {
+            try
+            {
+                var forecast = JsonConvert.DeserializeObject<ForecastResult>(stringResult);
+                ReturnData returnData = new ReturnData();
+                forecast.List.ForEach(item => {
+                    returnData.List.Add(new ReturnWeather { Time = item.Dt,Temp = item.Main.Temp, Weather = item.Weather[0].Main, WeatherDetail = item.Weather[0].Description });
+                });
+                returnData.Count = forecast.Cnt;
+
+                return returnData;
+            }catch(Exception e)
+            {
+                return null;
             }
         }
     }

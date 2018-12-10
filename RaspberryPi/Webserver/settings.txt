@@ -1,0 +1,4 @@
+sleep time: 22:00
+wake time: 08:00
+city: antwerp
+brightness: brightness:
