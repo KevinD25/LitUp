@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.SeekBar
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_device_change_settings.*
 import kotlinx.android.synthetic.main.activity_device_setup.*
 import org.jetbrains.anko.doAsync
@@ -12,10 +15,22 @@ import org.jetbrains.anko.uiThread
 import java.net.URL
 
 class ChangeSettingsActivity : AppCompatActivity() {
+    private val TAG : String = "ChangeSettingsActivity"
+
+    private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
+
+    lateinit var settings : Settings
+    var disposable : Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_change_settings)
+
+        disposable = service.getSettings(1).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                {result -> fillSettings(result)},
+                {error -> Log.e(TAG, error.message)}
+        )
 
         seekbar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
 
@@ -63,6 +78,15 @@ class ChangeSettingsActivity : AppCompatActivity() {
                 dialog.show()
             }
         }
+    }
+
+    fun fillSettings(settings: Settings){
+        this.settings = settings
+        txt_sleep.setText(settings.Sleep_Time)
+        txt_wake.setText(settings.Wake_Time)
+        txt_changecity.setText(settings.Location)
+        lbl_brightnessvalue.setText(settings.Brightness.toString())
+        seekbar.progress = settings.Brightness.toInt()
     }
 
     fun emptycheck(city: String, brightness: String, sleep: String, wake: String): Boolean{
