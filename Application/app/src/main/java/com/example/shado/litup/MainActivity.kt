@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
 
-    public lateinit var settings : Settings
     var disposable :Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,16 +32,11 @@ class MainActivity : AppCompatActivity() {
 
         btn_changesettings.setOnClickListener {
             val intent = Intent(this, ChangeSettingsActivity::class.java)
+            intent.putExtra("settingsId", 1)
             startActivity(intent)
         }
 
         auth = FirebaseAuth.getInstance()
-
-        disposable = service.getSettings(1).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                {result -> fillSettings(result)},
-                {error -> Log.e(TAG, error.message)}
-        )
 
         btn_logout.setOnClickListener {
             logout()
@@ -67,32 +61,6 @@ class MainActivity : AppCompatActivity() {
     fun logout(){
         FirebaseAuth.getInstance().signOut()
         startLoginActivity()
-    }
-
-    private fun fillSettings(settings : Settings){
-        this.settings = settings
-        var wakeSleep = settings.Wake_SleepTime.split("/")
-        var wake = ""
-        var sleep = ""
-        wakeSleep.forEach { time ->
-            if(time.contains('w')){
-                wake += time.substring(time.indexOf(';'))
-            }
-            if(time.contains('s')){
-                sleep += time.substring(time.indexOf(';'))
-            }
-        }
-        var s = "Brightness: ${settings.Brightness}"
-        wake.split(';').forEach { wakeTime ->
-            if(wakeTime.length > 1)
-                s += "\nWake time: ${wakeTime.substring(wakeTime.indexOf(';') + 1)}"
-        }
-        sleep.split(';').forEach{ sleepTime ->
-            if(sleepTime.length > 1)
-                s += "\nSleep time: ${sleepTime.substring(sleepTime.indexOf(';') + 1)}"
-        }
-        s += "\nLocation: ${settings.Location}\nUnit: ${settings.Unit}"
-        lbl_currentSettings.setText(s)
     }
 
     private fun startLoginActivity(){
