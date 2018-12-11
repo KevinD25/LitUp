@@ -6,8 +6,8 @@ package com.example.shado.litup
 class Settings {
     private lateinit var brightness: Number
     private lateinit var wake_SleepTime: String
-    private lateinit var wake_Time: String
-    private lateinit var sleep_Time: String
+    private lateinit var wakeTime: String
+    private lateinit var sleepTime: String
     private lateinit var location: String
     private lateinit var unit: String
 
@@ -26,14 +26,14 @@ class Settings {
         set(value) {
             wake_SleepTime = value
             var wakeSleepList = wake_SleepTime.split("/")
-            wake_Time = ""
-            sleep_Time = ""
+            wakeTime = ""
+            sleepTime = ""
             wakeSleepList.forEach { time ->
                 if (time.contains('w')) {
-                    wake_Time = time.substring(time.indexOf(';')+1)
+                    wakeTime = time.substring(time.indexOf(';')+1)
                 }
                 if (time.contains('s')) {
-                    sleep_Time = time.substring(time.indexOf(';')+1)
+                    sleepTime = time.substring(time.indexOf(';')+1)
                 }
             }
             /*wake.split(';').forEach { wakeTime ->
@@ -46,22 +46,22 @@ class Settings {
             }*/
         }
 
-    var Wake_Time: String
+    var WakeTime: String
         get() {
-            setWakeSleepTime()
-            return wake_Time
+            //setWakeSleepTime()
+            return wakeTime
         }
         set(value) {
-            wake_Time = value
+            wakeTime = value
         }
 
-    var Sleep_Time: String
+    var SleepTime: String
         get() {
-            setWakeSleepTime()
-            return sleep_Time
+            //setWakeSleepTime()
+            return sleepTime
         }
         set(value) {
-            sleep_Time = value
+            sleepTime = value
         }
 
     var Location: String
@@ -81,14 +81,14 @@ class Settings {
 
     fun setWakeSleepTime(){
         var wakeSleepList = wake_SleepTime.split("/")
-        wake_Time = ""
-        sleep_Time = ""
+        wakeTime = ""
+        sleepTime = ""
         wakeSleepList.forEach { time ->
             if (time.contains('w')) {
-                wake_Time = time.substring(time.indexOf(';')+1)
+                wakeTime = time.substring(time.indexOf(';')+1)
             }
             if (time.contains('s')) {
-                sleep_Time = time.substring(time.indexOf(';')+1)
+                sleepTime = time.substring(time.indexOf(';')+1)
             }
         }
     }

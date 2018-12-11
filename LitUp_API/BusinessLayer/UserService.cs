@@ -35,6 +35,8 @@ namespace BusinessLayer
                     s_old.Unit = newSettings.Unit;
                 if (newSettings.WakeTime != null || newSettings.WakeTime != "")
                     s_old.WakeTime = newSettings.WakeTime;
+                if (newSettings.SleepTime != null || newSettings.SleepTime != "")
+                    s_old.SleepTime = newSettings.SleepTime;
                 litUpContext.SaveChanges();
                 return s_old;
             }
