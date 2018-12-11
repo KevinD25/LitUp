@@ -2,14 +2,35 @@ package com.example.shado.litup
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.widget.SeekBar
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_device_change_settings.*
+import kotlinx.android.synthetic.main.activity_device_setup.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import java.net.URL
 
 class ChangeSettingsActivity : AppCompatActivity() {
+    private val TAG : String = "ChangeSettingsActivity"
+
+    private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
+
+    lateinit var settings : Settings
+    var disposable : Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_change_settings)
+
+        disposable = service.getSettings(1).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                {result -> fillSettings(result)},
+                {error -> Log.e(TAG, error.message)}
+        )
 
         seekbar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
 
@@ -23,5 +44,52 @@ class ChangeSettingsActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
         })
+        txt_sleep.setOnClickListener{
+            val newFragment = TimePickerFragment()
+            newFragment.show(fragmentManager, "Time Picker")
+        }
+        txt_wake.setOnClickListener{
+            val newFragment = TimePickerFragment()
+            newFragment.show(fragmentManager, "Time Picker")
+        }
+
+        btn_save.setOnClickListener{
+            var city = txt_changecity.text
+            var brightness = lbl_brightnessvalue.text
+            var sleepTime = txt_sleep.text
+            var wakeTime = txt_wake.text
+
+            var param = "sleep=" + sleepTime + "&wake=" + wakeTime + "&city=" + city + "&brightness=" + brightness
+            if(emptycheck(city.toString(), brightness.toString(), sleepTime.toString(), wakeTime.toString())) {
+                doAsync {
+                    val result = URL("http://raspberrypi.local?" + param).readText()
+                    uiThread {
+                        Log.d("Request", result)
+                        lbl_response.text = result
+                    }
+
+                }
+            } else {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Error")
+                builder.setMessage("Please fill in all the fields!")
+                builder.setPositiveButton("Ok"){dialog, which ->}
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            }
+        }
+    }
+
+    fun fillSettings(settings: Settings){
+        this.settings = settings
+        txt_sleep.setText(settings.Sleep_Time)
+        txt_wake.setText(settings.Wake_Time)
+        txt_changecity.setText(settings.Location)
+        lbl_brightnessvalue.setText(settings.Brightness.toString())
+        seekbar.progress = settings.Brightness.toInt()
+    }
+
+    fun emptycheck(city: String, brightness: String, sleep: String, wake: String): Boolean{
+        return(city != "" && brightness != "" && sleep != "" && wake != "")
     }
 }

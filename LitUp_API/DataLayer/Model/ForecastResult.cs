@@ -6,7 +6,12 @@ namespace DataLayer.Model
 {
     public class ForecastResult
     {
+        public ForecastResult()
+        {
+            List = new List<WeatherResult>();
+        }
         public int Cnt { get; set; }
-        public IEnumerable<WeatherResult> List { get; set; }
+        public List<WeatherResult> List { get; set; }
+
     }
 }
