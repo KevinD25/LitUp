@@ -31,5 +31,15 @@ namespace LitUp_API.Controllers
             }
             else return NotFound();
         }
+
+        [Route("settings/{id}")]
+        [HttpPut]
+        public IActionResult Settings(int id, [FromBody] Settings newSettings)
+        {
+            Settings settings = userService.UpdateSettings(id, newSettings);
+            if (settings != null)
+                return Ok();
+            return NotFound();
+        }
     }
 }
