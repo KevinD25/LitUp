@@ -23,7 +23,7 @@ namespace BusinessLayer
         public Settings UpdateSettings(int id, Settings newSettings)
         {
             if (id == 0)
-                return newSettings(newSettings);
+                return NewSettings(newSettings);
             Settings s_old = litUpContext.Settings.Find(id);
             if (s_old != null)
             {
@@ -33,15 +33,15 @@ namespace BusinessLayer
                     s_old.Location = newSettings.Location;
                 if (newSettings.Unit == 'C' || newSettings.Unit == 'F')
                     s_old.Unit = newSettings.Unit;
-                if (newSettings.Wake_SleepTime != null || newSettings.Wake_SleepTime != "")
-                    s_old.Wake_SleepTime = newSettings.Wake_SleepTime;
+                if (newSettings.WakeTime != null || newSettings.WakeTime != "")
+                    s_old.WakeTime = newSettings.WakeTime;
                 litUpContext.SaveChanges();
                 return s_old;
             }
             else return null;
         }
 
-        public Settings newSettings(Settings settings)
+        public Settings NewSettings(Settings settings)
         {
             litUpContext.Settings.Add(settings);
             litUpContext.SaveChanges();
