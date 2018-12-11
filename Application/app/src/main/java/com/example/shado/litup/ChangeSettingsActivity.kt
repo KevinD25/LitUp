@@ -26,11 +26,16 @@ class ChangeSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_change_settings)
 
-        disposable = service.getSettings(1).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                {result -> fillSettings(result)},
-                {error -> Log.e(TAG, error.message)}
-        )
+        var extras = intent.extras
+        var settingsId = 0
+        if(extras != null)
+            settingsId = extras.getInt("settingsId")
+            if (settingsId != 0)
+                disposable = service.getSettings(1).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                        {result -> fillSettings(result)},
+                        {error -> Log.e(TAG, error.message)}
+                )
 
         seekbar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
 
@@ -54,13 +59,32 @@ class ChangeSettingsActivity : AppCompatActivity() {
         }
 
         btn_save.setOnClickListener{
-            var city = txt_changecity.text
-            var brightness = lbl_brightnessvalue.text
-            var sleepTime = txt_sleep.text
-            var wakeTime = txt_wake.text
+            var newSettings = Settings()
+            var city = txt_changecity.text.toString()
+            if(city != null || city.equals(""))
+                newSettings.Location = city
+            var brightness = lbl_brightnessvalue.text.toString()
+            if(brightness != null || brightness.equals(""))
+                try{
+                    newSettings.Brightness = Integer.valueOf(brightness)
+                }catch (e : NumberFormatException){
+                    e.printStackTrace()
+                }
+            var sleepTime = txt_sleep.text.toString()
+            if(sleepTime != null || sleepTime.equals(""))
+                newSettings.SleepTime = sleepTime
+            var wakeTime = txt_wake.text.toString()
+            if(wakeTime != null || wakeTime.equals(""))
+                newSettings.WakeTime = wakeTime
+
+
+            disposable = service.updateSettings(settingsId, newSettings).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                    {result -> fillSettings(result)},
+                    {error -> Log.e(TAG, error.message)})
 
             var param = "sleep=" + sleepTime + "&wake=" + wakeTime + "&city=" + city + "&brightness=" + brightness
-            if(emptycheck(city.toString(), brightness.toString(), sleepTime.toString(), wakeTime.toString())) {
+            if(emptycheck(city, brightness, sleepTime, wakeTime)) {
                 doAsync {
                     val result = URL("http://raspberrypi.local?" + param).readText()
                     uiThread {
@@ -82,8 +106,8 @@ class ChangeSettingsActivity : AppCompatActivity() {
 
     fun fillSettings(settings: Settings){
         this.settings = settings
-        txt_sleep.setText(settings.Sleep_Time)
-        txt_wake.setText(settings.Wake_Time)
+        txt_sleep.setText(settings.SleepTime)
+        txt_wake.setText(settings.WakeTime)
         txt_changecity.setText(settings.Location)
         lbl_brightnessvalue.setText(settings.Brightness.toString())
         seekbar.progress = settings.Brightness.toInt()
