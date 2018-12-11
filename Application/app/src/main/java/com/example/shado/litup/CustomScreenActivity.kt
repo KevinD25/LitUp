@@ -144,8 +144,8 @@ class CustomScreenActivity : AppCompatActivity() {
     }
 
     fun send(){
-
-        createString()
+        var colorstring: String
+        colorstring = createString()
 
     }
 
@@ -153,9 +153,19 @@ class CustomScreenActivity : AppCompatActivity() {
         var output:String = ""
         output = txtName.text.toString().trim() + ";"
         for(item in colors){
-            output += item + ";"
+            output += hex2Rgb(item) + ";"
         }
-        output.substring(0, output.length -1)
+        output = output.substring(0, output.length -1)
         return output
+    }
+
+    fun hex2Rgb(colorStr: String): String {
+        var kleuren : String
+
+        kleuren = Integer.valueOf(colorStr.substring(1, 3), 16).toString() + "/"
+        kleuren += Integer.valueOf(colorStr.substring(3, 5), 16).toString() + "/"
+        kleuren += Integer.valueOf(colorStr.substring(5, 7), 16).toString()
+
+        return kleuren
     }
 }
