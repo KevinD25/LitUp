@@ -26,14 +26,14 @@ class Settings {
         set(value) {
             wake_SleepTime = value
             var wakeSleepList = wake_SleepTime.split("/")
-            var wake = ""
-            var sleep = ""
+            wake_Time = ""
+            sleep_Time = ""
             wakeSleepList.forEach { time ->
                 if (time.contains('w')) {
-                    wake += time.substring(time.indexOf(';')+1)
+                    wake_Time = time.substring(time.indexOf(';')+1)
                 }
                 if (time.contains('s')) {
-                    sleep += time.substring(time.indexOf(';')+1)
+                    sleep_Time = time.substring(time.indexOf(';')+1)
                 }
             }
             /*wake.split(';').forEach { wakeTime ->
@@ -48,6 +48,7 @@ class Settings {
 
     var Wake_Time: String
         get() {
+            setWakeSleepTime()
             return wake_Time
         }
         set(value) {
@@ -56,6 +57,7 @@ class Settings {
 
     var Sleep_Time: String
         get() {
+            setWakeSleepTime()
             return sleep_Time
         }
         set(value) {
@@ -76,4 +78,18 @@ class Settings {
         set(value) {
             unit = value
         }
+
+    fun setWakeSleepTime(){
+        var wakeSleepList = wake_SleepTime.split("/")
+        wake_Time = ""
+        sleep_Time = ""
+        wakeSleepList.forEach { time ->
+            if (time.contains('w')) {
+                wake_Time = time.substring(time.indexOf(';')+1)
+            }
+            if (time.contains('s')) {
+                sleep_Time = time.substring(time.indexOf(';')+1)
+            }
+        }
+    }
 }
