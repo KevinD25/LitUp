@@ -7,15 +7,15 @@ class SimpleDots(SampleBase):
 
 	def run(self):
 		offset_canvas = self.matrix.CreateFrameCanvas()
-		y = 0
+		x = 0
 		while True:
-			if y > 32:
-				y = 0
+			if x > 32:
+				x = 0
 			else:
-				y += 1
-			for o in range(0, int(y)):
-				offset_canvas.SetPixel(15, o, 0, 0, 0)
-			offset_canvas.SetPixel(15, y, 200, 100, 100)
+				x += 1
+			for o in range(0, int(x)):
+				offset_canvas.SetPixel(o, 30, 0, 0, 0)
+			offset_canvas.SetPixel(x, 30, 200, 100, 100)
 			offset_canvas = self.matrix.SwapOnVSync(offset_canvas)
 			self.usleep(20*5000)
 
