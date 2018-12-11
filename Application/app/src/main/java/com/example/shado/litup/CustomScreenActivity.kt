@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_custom_screen.*
 import me.priyesh.chroma.ChromaDialog
 import me.priyesh.chroma.ColorMode
 import me.priyesh.chroma.ColorSelectListener
+import org.jetbrains.anko.toast
+import org.json.JSONObject
 
 
 class CustomScreenActivity : AppCompatActivity() {
@@ -26,6 +28,7 @@ class CustomScreenActivity : AppCompatActivity() {
     var hoogte : Int = 0
     private var mColor: Int = -65536
     val buttons: MutableList<ImageButton> = mutableListOf()
+    val colors: MutableList<String> = mutableListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +38,6 @@ class CustomScreenActivity : AppCompatActivity() {
         var buttonzone = findViewById(R.id.buttonZone) as LinearLayout
         buttonzone.addView(getTableWithAllRowsStretchedView())
 
-        updateColorText(mColor)
         updateColorButton(mColor)
     }
 
@@ -100,10 +102,6 @@ class CustomScreenActivity : AppCompatActivity() {
         btnKleur.setBackgroundColor(color)
     }
 
-    private fun updateColorText(color:Int){
-        val hexColor = String.format("#%06X", 0xFFFFFF and color)
-        txtColor.setText(hexColor)
-    }
 
     fun onClickColorPicker(view:View){
          ChromaDialog.Builder()
@@ -112,7 +110,6 @@ class CustomScreenActivity : AppCompatActivity() {
                 .onColorSelected(object : ColorSelectListener {
                     override fun onColorSelected(color: Int) {
                         updateColorButton(color)
-                        updateColorText(color)
                         mColor = color
                     }
                 })
@@ -120,21 +117,45 @@ class CustomScreenActivity : AppCompatActivity() {
                 .show(getSupportFragmentManager(), "ChromaDialog");
     }
 
-    fun onClickTest(view:View){
-        var kleurID:Int = 0
-        var hexColor: String
-        for(item in buttons){
-            var buttonBackground = item.background;
-            if(buttonBackground is ColorDrawable)
-            {
-                kleurID = (buttonBackground as ColorDrawable).color;
-                hexColor = String.format("#%06X", 0xFFFFFF and kleurID)
-            }
-            else{
-                hexColor = "#000000"
-            }
+    fun onClickSave(view:View){
+        if(txtName.text.toString().trim() != ""){
+            colors.clear()
+            var kleurID:Int = 0
+            var hexColor: String
+            for(item in buttons){
+                var buttonBackground = item.background;
+                if(buttonBackground is ColorDrawable)
+                {
+                    kleurID = (buttonBackground as ColorDrawable).color;
+                    hexColor = String.format("#%06X", 0xFFFFFF and kleurID)
+                }
+                else{
+                    hexColor = "#000000"
+                }
 
-            Log.e("KLEUR", hexColor.toString())
+                colors.add(hexColor)
+                Log.e("KLEUR", hexColor)
+            }
+            send()
         }
+        else{
+            toast("Please enter a name...")
+        }
+    }
+
+    fun send(){
+
+        createString()
+
+    }
+
+    fun createString(): String{
+        var output:String = ""
+        output = txtName.text.toString().trim() + ";"
+        for(item in colors){
+            output += item + ";"
+        }
+        output.substring(0, output.length -1)
+        return output
     }
 }

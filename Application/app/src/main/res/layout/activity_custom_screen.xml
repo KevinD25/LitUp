@@ -61,22 +61,22 @@
             android:shadowDy="20"
             android:shadowRadius="10" />
 
-        <TextView
-            android:id="@+id/txtColor"
+        <EditText
+            android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:gravity="left|center_vertical"
-            android:text="TextView"
+            android:hint="Screensaver name"
             android:layout_weight="2"/>
 
         <Button
             android:id="@+id/btnTest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickTest"
+            android:onClick="onClickSave"
             android:text="Save"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"/>
