@@ -149,6 +149,12 @@ class CustomScreenActivity : AppCompatActivity() {
 
     }
 
+    fun createScreensaver(){
+        var screensaver: Screensaver
+        //screensaver.name = txtName.text.toString().trim()
+        //TODO Save screensaver in object (list of colors)
+    }
+
     fun createString(): String{
         var output:String = ""
         output = txtName.text.toString().trim() + ";"
