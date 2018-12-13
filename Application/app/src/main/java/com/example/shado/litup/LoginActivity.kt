@@ -79,4 +79,8 @@ class LoginActivity : AppCompatActivity() {
             startMainactivity()
         }
     }
+
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+    }
 }

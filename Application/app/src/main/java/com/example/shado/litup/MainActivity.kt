@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -33,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         btn_changesettings.setOnClickListener {
             val intent = Intent(this, ChangeSettingsActivity::class.java)
             intent.putExtra("settingsId", 1)
+            startActivity(intent)
+        }
+
+        btn_screensaver.setOnClickListener {
+            val intent = Intent(this, CustomScreenActivity::class.java)
             startActivity(intent)
         }
 
@@ -66,5 +72,9 @@ class MainActivity : AppCompatActivity() {
     private fun startLoginActivity(){
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onBackPressed() {
+        moveTaskToBack(true)
     }
 }

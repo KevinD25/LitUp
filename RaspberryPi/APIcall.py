@@ -1,15 +1,11 @@
-import requests, json, time, os, multiprocessing
+import requests, json, time, os
 
 response = requests.get("http://84.197.169.91/LitUp_API/api/weather")
+playtime = 4
 
 def showGifs(gif):
-	pstring = '../Rgb-Matrix/rpi-rgb-led-matrix/utils/led-image-viewer ../Rgb-Matrix/rpi-rgb-led-matrix/utils/' + gif + ' --led-gpio-mapping="adafruit-hat-pwm" --led-pixel-mapper="Rotate:270" --led-brightness=60'
+	pstring = '../Rgb-Matrix/rpi-rgb-led-matrix/utils/led-image-viewer -t ' + str(playtime) + ' ../Rgb-Matrix/rpi-rgb-led-matrix/utils/' + gif + ' --led-gpio-mapping="adafruit-hat-pwm" --led-pixel-mapper="Rotate:270" --led-brightness=60'
 	os.system(pstring)
-	time.sleep(3)
-	for line in os.popen("ps ax | grep " + pstring + " | grep -v grep"):
-		fields = line.split()
-		pid = fields[0]
-		os.kill(int(pid), signal.SIGKILL)
 data = response.json()
 list = data["list"]
 for f in list:
@@ -19,3 +15,4 @@ for f in list:
 	print(f["time"])
 	if f["weather"] == "Rain":
 		showGifs("cloud-rain.gif")
+		#time.sleep(playtime)
