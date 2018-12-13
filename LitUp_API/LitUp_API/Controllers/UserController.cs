@@ -19,6 +19,15 @@ namespace LitUp_API.Controllers
             this.userService = userService;
         }
 
+        [Route("{id}")]
+        [HttpGet]
+        public IActionResult user(int id)
+        {
+            User user = userService.getUser(id);
+            if (user != null)
+                return Ok(user);
+            return NotFound();
+        }
 
         [Route("settings/{id}")]
         [HttpGet]

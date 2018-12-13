@@ -1,7 +1,9 @@
 ﻿using DataLayer;
 using DataLayer.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BusinessLayer
@@ -48,6 +50,11 @@ namespace BusinessLayer
             litUpContext.Settings.Add(settings);
             litUpContext.SaveChanges();
             return litUpContext.Settings.Find(settings);
+        }
+
+        public User getUser(int id)
+        {
+            return litUpContext.Users.Include(u => u.PersonalSettings).SingleOrDefault(u => u.Id == id);
         }
     }
 }
