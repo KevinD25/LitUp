@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.SeekBar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -17,25 +19,26 @@ import java.net.URL
 class ChangeSettingsActivity : AppCompatActivity() {
     private val TAG : String = "ChangeSettingsActivity"
 
+    private lateinit var auth: FirebaseAuth
+    private lateinit var currentUser : FirebaseUser
+    private var firebaseToken : String? = null
+    private lateinit var currentUserInfo : User
+
     private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
 
     lateinit var settings : Settings
+    private var settingsId = 0
     var disposable : Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_change_settings)
 
+        auth = FirebaseAuth.getInstance()
+
         var extras = intent.extras
-        var settingsId = 0
         if(extras != null)
-            settingsId = extras.getInt("settingsId")
-            if (settingsId != 0)
-                disposable = service.getSettings(1).subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                        {result -> fillSettings(result)},
-                        {error -> Log.e(TAG, error.message)}
-                )
+            settingsId = (extras["settingsId"] as Number).toInt()
 
         seekbar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
 
@@ -78,7 +81,7 @@ class ChangeSettingsActivity : AppCompatActivity() {
                 newSettings.WakeTime = wakeTime
 
 
-            disposable = service.updateSettings(settingsId, newSettings).subscribeOn(Schedulers.io())
+            disposable = service.updateSettings(settingsId, newSettings, "Bearer " + firebaseToken).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(
                     {result -> fillSettings(result)},
                     {error -> Log.e(TAG, error.message)})
@@ -115,5 +118,28 @@ class ChangeSettingsActivity : AppCompatActivity() {
 
     fun emptycheck(city: String, brightness: String, sleep: String, wake: String): Boolean{
         return(city != "" && brightness != "" && sleep != "" && wake != "")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        currentUser = auth.currentUser as FirebaseUser
+        var token = currentUser.getIdToken(true)
+        token.addOnCompleteListener {
+            result ->
+            firebaseToken = result.result?.token
+            Log.d(TAG, firebaseToken)
+            service.getUser("Bearer " + firebaseToken, currentUser.uid).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                    {result ->
+                        currentUserInfo = result
+                        if (settingsId != 0)
+                            disposable = service.getSettings("Bearer " + firebaseToken, settingsId).subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                                    { result -> fillSettings(result) },
+                                    { error -> Log.e(TAG, error.message) }
+                            )
+                    },
+                    {error -> Log.e(TAG, error.message)})
+        }
     }
 }
