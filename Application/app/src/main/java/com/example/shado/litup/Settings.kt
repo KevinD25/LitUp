@@ -4,12 +4,17 @@ package com.example.shado.litup
  * Created by Jorren on 3/12/2018.
  */
 class Settings {
+    private lateinit var id : Number
     private lateinit var brightness: Number
     private lateinit var wake_SleepTime: String
     private lateinit var wakeTime: String
     private lateinit var sleepTime: String
     private lateinit var location: String
     private lateinit var unit: String
+
+    var Id : Number
+        get() {return id}
+        set(value) {id = value}
 
     var Brightness: Number
         get() {
