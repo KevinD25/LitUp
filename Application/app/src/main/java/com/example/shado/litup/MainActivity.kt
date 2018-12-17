@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser : FirebaseUser
+    private lateinit var currentUserInfo : User
 
     private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
 
@@ -33,7 +34,10 @@ class MainActivity : AppCompatActivity() {
 
         btn_changesettings.setOnClickListener {
             val intent = Intent(this, ChangeSettingsActivity::class.java)
-            intent.putExtra("settingsId", 1)
+            if(currentUserInfo != null)
+                if(currentUserInfo.PersonalSettings != null)
+                    intent.putExtra("settingsId", currentUserInfo.PersonalSettings.Id)
+            else intent.putExtra("settingsId", 0)
             startActivity(intent)
         }
 
@@ -54,6 +58,16 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         if(auth.currentUser != null){
             currentUser = auth.currentUser as FirebaseUser
+            var token = currentUser.getIdToken(true)
+            token.addOnCompleteListener {
+                result ->
+                    var firebaseToken = result.result?.token
+                    Log.d(TAG, firebaseToken)
+                    service.getUser("Bearer " + firebaseToken, currentUser.uid).subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                            {result -> setUser(result)},
+                            {error -> Log.e(TAG, error.message)})
+            }
         }
         else
             startLoginActivity()
@@ -72,6 +86,11 @@ class MainActivity : AppCompatActivity() {
     private fun startLoginActivity(){
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+    }
+
+    fun setUser(user : User){
+        currentUserInfo = user
+        Log.d(TAG, user.Id.toString())
     }
 
     override fun onBackPressed() {
