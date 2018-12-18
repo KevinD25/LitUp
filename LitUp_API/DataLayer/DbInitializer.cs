@@ -26,6 +26,28 @@ namespace DataLayer
                 context.Settings.Add(s1);
                 context.SaveChanges();
             }
+
+            if (!context.Users.Any())
+            {
+                Settings s = new Settings()
+                {
+                    Brightness = 65,
+                    WakeTime = "8:00:00",
+                    SleepTime = "22:00:00",
+                    Location = "Antwerp",
+                    Unit = 'C'
+                };
+
+                User u = new User()
+                {
+                    FirebaseId = "c9v8uwZaKKXtY1r87UFlQkoOKB53",
+                    PersonalSettings = s
+                };
+
+                context.Settings.Add(s);
+                context.Users.Add(u);
+                context.SaveChanges();
+            }
         }
     }
 }
