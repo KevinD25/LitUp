@@ -13,6 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_device_change_settings.*
 import kotlinx.android.synthetic.main.activity_device_setup.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import java.net.URL
 
@@ -89,10 +90,11 @@ class ChangeSettingsActivity : AppCompatActivity() {
             var param = "sleep=" + sleepTime + "&wake=" + wakeTime + "&city=" + city + "&brightness=" + brightness
             if(emptycheck(city, brightness, sleepTime, wakeTime)) {
                 doAsync {
-                    val result = URL("http://raspberrypi.local?" + param).readText()
+                    val result = URL("http://192.168.0.247/changesettings?" + param).readText()
                     uiThread {
                         Log.d("Request", result)
-                        lbl_response.text = result
+                        //lbl_response.text = result
+                        toast(result)
                     }
 
                 }
