@@ -62,6 +62,7 @@ def changeSettings():
                 print(sleep + " " + wake + " " + city + " " + brightness)
 		s = open("screensaver", "w")
                 f = open("settings.txt", "w")
+                f.write("brightness: " + brightness + "\r\n")
                 f.write("sleep time: " + sleep + "\r\n")
                 f.write("wake time: " + wake + "\r\n")
                 f.write("city: " + city + "\r\n")
@@ -70,7 +71,6 @@ def changeSettings():
 		s.close()
                 f.close()
         return "data received, changing settings"
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
