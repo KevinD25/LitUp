@@ -57,7 +57,7 @@ namespace BusinessLayer
         {
             User user = litUpContext.Users.Include(u => u.PersonalSettings).SingleOrDefault(u => u.FirebaseId == firebaseId);
             if (user == null)
-                return new User("notKnownId") { Id = 0 };
+                return newUser(firebaseId);
             return user;
         }
 
