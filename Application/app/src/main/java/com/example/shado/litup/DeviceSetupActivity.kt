@@ -29,7 +29,7 @@ class DeviceSetupActivity : AppCompatActivity(){
             var passwd = txt_pass.text
             var city = txt_city.text
             var temp = ""
-            if (radiogroup.checkedRadioButtonId == 2131230855) {
+            if (radiogroup.checkedRadioButtonId == 2131296413) {
                 temp = "C"
             } else if (radiogroup.checkedRadioButtonId == -1) {
                 temp = ""
@@ -41,7 +41,7 @@ class DeviceSetupActivity : AppCompatActivity(){
             var param = "ssid=" + ssid + "&passwd=" + passwd + "&city=" + city + "&temp=" + temp + "&timezone=" + timezone
             if(emptycheck(ssid.toString(), passwd.toString(), city.toString(), temp.toString())) {
                 doAsync {
-                    val result = URL("http://192.168.0.247?" + param).readText()
+                    val result = URL("http://raspberrypi.local/setup?" + param).readText()
                     uiThread {
                         Log.d("Request", result)
                         lbl_response.text = result
