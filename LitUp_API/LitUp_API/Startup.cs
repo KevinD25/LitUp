@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer;
 using DataLayer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,20 @@ namespace LitUp_API
                 )
             );
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://securetoken.google.com/litup-a02df";
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "https://securetoken.google.com/litup-a02df",
+                        ValidateAudience = true,
+                        ValidAudience = "litup-a02df",
+                        ValidateLifetime = true
+                    };
+                });
+
             services.AddScoped<WeatherService>();
             services.AddScoped<UserService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -51,7 +66,7 @@ namespace LitUp_API
             }
 
             DbInitializer.Initialize(context);
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
