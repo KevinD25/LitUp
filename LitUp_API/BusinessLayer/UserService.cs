@@ -15,6 +15,7 @@ namespace BusinessLayer
         public UserService(LitUpContext litUpContext)
         {
             this.litUpContext = litUpContext;
+
         }
 
         public Settings getSettings(int id)
@@ -52,9 +53,19 @@ namespace BusinessLayer
             return litUpContext.Settings.Find(settings);
         }
 
-        public User getUser(int id)
+        public User getUser(string firebaseId)
         {
-            return litUpContext.Users.Include(u => u.PersonalSettings).SingleOrDefault(u => u.Id == id);
+            User user = litUpContext.Users.Include(u => u.PersonalSettings).SingleOrDefault(u => u.FirebaseId == firebaseId);
+            if (user == null)
+                return new User("notKnownId") { Id = 0 };
+            return user;
+        }
+
+        public User newUser(string firebaseId)
+        {
+                litUpContext.Users.Add(new User(firebaseId));
+                litUpContext.SaveChanges();
+                return getUser(firebaseId);
         }
     }
 }
