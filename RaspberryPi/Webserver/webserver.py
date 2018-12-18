@@ -10,6 +10,7 @@ temp = ""
 sleep = ""
 wake = ""
 brightness = ""
+screensaver = ""
 
 @app.route("/setup", methods=['GET','POST'])
 def setup():
@@ -51,7 +52,7 @@ def setup():
 @app.route("/changesettings", methods=['GET','POST'])
 def changeSettings():
         if request.method == 'GET':
-                global sleep,wake,city,brightness
+                global sleep,wake,city,brightness,screensaver
 
                 sleep = request.args.get('sleep', sleep)
                 wake = request.args.get('wake', wake)
@@ -62,7 +63,8 @@ def changeSettings():
                 f.write("sleep time: " + sleep + "\r\n")
                 f.write("wake time: " + wake + "\r\n")
                 f.write("city: " + city + "\r\n")
-                f.write("brightness: " + brightness)
+                f.write("brightness: " + brightness + "\r\n")
+		f.write("screensaver: " + screensaver + "\r\n")
                 f.close()
         return "data received, changing settings"
 
