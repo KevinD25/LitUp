@@ -58,8 +58,9 @@ def changeSettings():
                 wake = request.args.get('wake', wake)
                 city = request.args.get('city', city)
                 brightness = request.args.get('brightness', brightness)
+		screensaver = request.args.get('screensaver', screensaver)
                 print(sleep + " " + wake + " " + city + " " + brightness)
-				s = open("screensaver", "w")
+		s = open("screensaver", "w")
                 f = open("settings.txt", "w")
                 f.write("brightness: " + brightness + "\r\n")
                 f.write("sleep time: " + sleep + "\r\n")
@@ -69,7 +70,6 @@ def changeSettings():
 				s.close()
                 f.close()
         return "data received, changing settings"
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
