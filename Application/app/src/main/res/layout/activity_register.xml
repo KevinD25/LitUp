@@ -1,70 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.shado.litup.RegisterActivity">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/lbl_email_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:padding="25sp">
+        android:text="e-mail:" />
 
-        <TextView
-            android:id="@+id/lbl_email_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="e-mail:" />
+    <EditText
+        android:id="@+id/txt_email_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_email_register"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/txt_email_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lbl_email_register"
-            android:hint="username@example.com"
-            android:inputType="textEmailAddress" />
+    <TextView
+        android:id="@+id/lbl_pass_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_email_register"
+        android:text="Password:" />
 
-        <TextView
-            android:id="@+id/lbl_pass_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_email_register"
-            android:text="Password:" />
+    <EditText
+        android:id="@+id/txt_pass_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_pass_register"
+        android:hint="Password"
+        android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/txt_pass_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lbl_pass_register"
-            android:hint="password"
-            android:inputType="textPassword" />
+    <TextView
+        android:id="@+id/lbl_pass2_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_pass_register"
+        android:text="Repeat password:" />
 
-        <TextView
-            android:id="@+id/lbl_pass2_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_pass_register"
-            android:text="Repeat password:" />
+    <EditText
+        android:id="@+id/txt_pass2_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_pass2_register"
+        android:hint="password"
+        android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/txt_pass2_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lbl_pass2_register"
-            android:hint="password"
-            android:inputType="textPassword" />
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/txt_pass2_register"
+        android:text="Create Account" />
 
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/txt_pass2_register"
-            android:text="Create Account" />
-
-    </RelativeLayout>
-
-
-</RelativeLayout>
+</LinearLayout>

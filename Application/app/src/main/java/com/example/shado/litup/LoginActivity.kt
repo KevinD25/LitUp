@@ -26,23 +26,27 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btn_login.setOnClickListener {
-            if (!txt_email.text.toString().equals("") && !txt_pass.text.toString().equals("")) {
-                if (android.util.Patterns.EMAIL_ADDRESS.matcher(txt_email.text.toString()).matches())
-                    login(txt_email.text.toString(), txt_pass.text.toString())
+            if (!etxt_email.text.toString().equals("") && !etxt_pass.text.toString().equals("")) {
+                if (android.util.Patterns.EMAIL_ADDRESS.matcher(etxt_email.text.toString()).matches())
+                    login(etxt_email.text.toString(), etxt_pass.text.toString())
                 else
-                    txt_email.setError("Please use a valid email address")
+                    etxt_email.setError("Please use a valid email address")
             }
             else{
-                if(txt_email.text.toString().equals(""))
-                    txt_email.setError("email is blank!")
-                if(txt_pass.text.toString().equals(""))
-                    txt_pass.setError("password is blank!")
+                if(etxt_email.text.toString().equals(""))
+                    etxt_email.setError("email is blank!")
+                if(etxt_pass.text.toString().equals(""))
+                    etxt_pass.setError("password is blank!")
             }
         }
-        setRegisterLink()
+
+        btn_back.setOnClickListener {
+            this.finish()
+        }
+        //setRegisterLink()
     }
 
-    private fun setRegisterLink() {
+    /*private fun setRegisterLink() {
         val ssb = SpannableStringBuilder()
         ssb.append(btn_to_register.text)
         ssb.setSpan(URLSpan("http://www.google.com"), 0, ssb.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -51,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-    }
+    }*/
 
     private fun login(email : String, password : String) {
         auth.signInWithEmailAndPassword(email, password)
@@ -78,9 +82,5 @@ class LoginActivity : AppCompatActivity() {
             val currentUser = auth.currentUser
             startMainactivity()
         }
-    }
-
-    override fun onBackPressed() {
-        moveTaskToBack(true)
     }
 }

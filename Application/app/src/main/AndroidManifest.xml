@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shado.litup">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,22 +10,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/CustomAppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".CustomScreenActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".DeviceSetupActivity"
+            android:label="@string/title_activity_device_setup"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ChangeSettingsActivity" />
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity
-            android:name=".DeviceSetupActivity"
-            android:label="@string/title_activity_device_setup"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ChangeSettingsActivity"></activity>
     </application>
 
 </manifest>
