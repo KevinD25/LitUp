@@ -15,9 +15,10 @@
         android:layout_marginHorizontal="10dp">
 
         <Button
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="<  Back"
+            android:text="Back"
             android:background="?android:attr/selectableItemBackground"/>
 
         <LinearLayout
@@ -26,6 +27,7 @@
             android:gravity="end">
 
             <ImageView
+                android:id="@+id/btn_help"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:paddingTop="10dp"
@@ -86,12 +88,14 @@
             android:textSize="16dp"
             android:text="I have read and accept the terms and
    conditions for the LitUp app and device"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
 
             <CheckBox
+                android:id="@+id/checkbox_ToS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Yes i agree"/>

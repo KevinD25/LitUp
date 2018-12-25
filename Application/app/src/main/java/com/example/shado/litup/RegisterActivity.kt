@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.regex.Pattern
 
@@ -23,29 +22,29 @@ open class RegisterActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btn_register.setOnClickListener {
-            if(checkEqualPass(txt_pass_register.text.toString(),txt_pass2_register.text.toString())){
-                if (!txt_email_register.text.toString().equals("") && !txt_pass_register.text.toString().equals("") && !txt_pass2_register.text.toString().equals("")) {
-                    if (android.util.Patterns.EMAIL_ADDRESS.matcher(txt_email_register.text.toString()).matches())
-                        createUser(txt_email_register.text.toString(), txt_pass_register.text.toString())
+            if(checkEqualPass(etxt_pass.text.toString(),etxt_repass.text.toString())){
+                if (!etxt_email.text.toString().equals("") && !etxt_pass.text.toString().equals("") && !etxt_repass.text.toString().equals("")) {
+                    if (android.util.Patterns.EMAIL_ADDRESS.matcher(etxt_email.text.toString()).matches())
+                        createUser(etxt_email.text.toString(), etxt_pass.text.toString())
                     else
-                        txt_email_register.setError("Please use a valid email address")
+                        etxt_email.setError("Please use a valid email address")
                 }
                 else{
-                    if(txt_email_register.text.toString().equals(""))
-                        txt_email_register.setError("email is blank!")
-                    if(txt_pass_register.text.toString().equals(""))
-                        txt_pass_register.setError("password is blank!")
-                    if(txt_pass2_register.text.toString().equals(""))
-                        txt_pass2_register.setError("password is blank!")
+                    if(etxt_email.text.toString().equals(""))
+                        etxt_email.setError("email is blank!")
+                    if(etxt_pass.text.toString().equals(""))
+                        etxt_pass.setError("password is blank!")
+                    if(etxt_repass.text.toString().equals(""))
+                        etxt_repass.setError("password is blank!")
                 }
             }
             else
-                txt_pass2_register.setError("Passwords do not match!")
+                etxt_repass.setError("Passwords do not match!")
         }
 
-        txt_pass_register.setOnFocusChangeListener { view, b ->
-            if(!checkPassValid(txt_pass_register.text.toString())) {
-                txt_pass_register.setError("Password must include at least one upper case, one lowercase one number and one special character")
+        etxt_pass.setOnFocusChangeListener { view, b ->
+            if(!checkPassValid(etxt_pass.text.toString())) {
+                etxt_pass.setError("Password must include at least one upper case, one lowercase one number and one special character")
                 btn_register.isEnabled = false
             }else btn_register.isEnabled = true
         }
