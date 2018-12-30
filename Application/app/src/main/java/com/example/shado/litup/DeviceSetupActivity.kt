@@ -25,6 +25,8 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 import java.net.URL
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class DeviceSetupActivity : AppCompatActivity() {
@@ -49,7 +51,7 @@ class DeviceSetupActivity : AppCompatActivity() {
                 progress?.visibility = View.INVISIBLE
             }
 
-            var add : Boolean = true
+            var add = true
             resultList.clear()
             resultList = wifiManager.scanResults as ArrayList<ScanResult>
             Log.d("TESTING", "onReceive Called")
@@ -136,13 +138,13 @@ class DeviceSetupActivity : AppCompatActivity() {
         return (ssid != "" && passwd != "" && city != "" && temp != "")
     }
 
-    fun refresh(view:View){
+   /* fun refresh(view:View){
         stopScanning()
         ssidList.clear()
         startScanning()
         adapter?.notifyDataSetChanged()
         progress?.visibility = View.VISIBLE
-    }
+    }*/
 
     fun openDialog(view: View) {
         val dialog = MaterialDialog(this).show {
@@ -183,6 +185,7 @@ class DeviceSetupActivity : AppCompatActivity() {
         if (checkPermissions()) {
             registerReceiver(broadcastReceiver, IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
             wifiReceiverRegistered = true
+            
         }
     }
 

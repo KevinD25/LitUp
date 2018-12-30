@@ -31,13 +31,13 @@
         <ListView
             android:id="@+id/listWifi"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_weight="9"
+            android:layout_weight="10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
 
         </ListView>
 
-        <Button
+       <!-- <Button
             android:id="@+id/btnRefresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -53,7 +53,7 @@
             android:layout_margin="5dp"
             android:minHeight="60dp"
             android:onClick="refresh"
-            android:text="Refresh" />
+            android:text="Refresh" />-->
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
