@@ -12,6 +12,17 @@
         android:layout_centerInParent="true"
         android:padding="15sp">
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/txt_ssid"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="-1dp"
+            android:onClick="openDialog"
+            android:text="Choose Wifi" />
+
         <TextView
             android:id="@+id/lbl_ssid"
             android:layout_width="wrap_content"
