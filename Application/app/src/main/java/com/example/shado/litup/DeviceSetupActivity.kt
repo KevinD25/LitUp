@@ -29,11 +29,10 @@ import java.util.*
 import kotlin.concurrent.schedule
 
 
+@Suppress("DEPRECATION")
 class DeviceSetupActivity : AppCompatActivity() {
 
-    var resultList = ArrayList<ScanResult>()
     lateinit var wifiManager: WifiManager
-    private var wifiReceiverRegistered: Boolean = false
     lateinit var customView: View
     var ssidList : ArrayList<String> = arrayListOf()
     var adapter : ArrayAdapter<String>? = null
@@ -45,31 +44,18 @@ class DeviceSetupActivity : AppCompatActivity() {
         private const val PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 120
     }
 
-    val broadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(contxt: Context?, intent: Intent?) {
-            if(progress != null){
-                progress?.visibility = View.INVISIBLE
-            }
+    val wifiScanReceiver = object : BroadcastReceiver() {
 
-            var add = true
-            resultList.clear()
-            resultList = wifiManager.scanResults as ArrayList<ScanResult>
-            Log.d("TESTING", "onReceive Called")
-            ssidList.clear()
-            for(scanresult in resultList){
-                add = true
-                if(scanresult.SSID.trim() != ""){
-                    for(item in ssidList){
-                        if (scanresult.SSID.trim().equals(item)) add = false
-                    }
-                    if(add) {
-                        ssidList.add(scanresult.SSID.trim())
-                        adapter?.notifyDataSetChanged()
-                    }
-                }
+        override fun onReceive(context: Context, intent: Intent) {
+            val success = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
+            if (success) {
+                scanSuccess()
+            } else {
+                scanFailure()
             }
         }
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,16 +74,75 @@ class DeviceSetupActivity : AppCompatActivity() {
         btn_send.setOnClickListener {
             send()
         }
+
+
+
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
+        this.registerReceiver(wifiScanReceiver, intentFilter)
+
+        Scan()
+
     }
 
-    override fun onStart() {
-        super.onStart()
-        startScanning()
+    private fun Scan(){
+        if(checkPermissions()){
+            val success = wifiManager.startScan()
+            if (!success) {
+                // scan failure handling
+                scanFailure()
+            }
+        }
     }
 
-    override fun onStop() {
-        super.onStop()
-        stopScanning()
+    private fun scanSuccess() {
+        val results = wifiManager.scanResults
+        //... use new scan results ...
+        if(progress != null){
+            progress?.visibility = View.INVISIBLE
+        }
+
+        var add = true
+
+        ssidList.clear()
+        for(scanresult in results){
+            add = true
+            if(scanresult.SSID.trim() != ""){
+                for(item in ssidList){
+                    if (scanresult.SSID.trim().equals(item)) add = false
+                }
+                if(add) {
+                    ssidList.add(scanresult.SSID.trim())
+                    adapter?.notifyDataSetChanged()
+                }
+            }
+        }
+    }
+
+    private fun scanFailure() {
+        // handle failure: new scan did NOT succeed
+        // consider using old scan results: these are the OLD results!
+        val results = wifiManager.scanResults
+        //... potentially use older scan results ...
+        if(progress != null){
+            progress?.visibility = View.INVISIBLE
+        }
+
+        var add = true
+
+        ssidList.clear()
+        for(scanresult in results){
+            add = true
+            if(scanresult.SSID.trim() != ""){
+                for(item in ssidList){
+                    if (scanresult.SSID.trim().equals(item)) add = false
+                }
+                if(add) {
+                    ssidList.add(scanresult.SSID.trim())
+                    adapter?.notifyDataSetChanged()
+                }
+            }
+        }
     }
 
     fun send() {
@@ -138,13 +183,6 @@ class DeviceSetupActivity : AppCompatActivity() {
         return (ssid != "" && passwd != "" && city != "" && temp != "")
     }
 
-   /* fun refresh(view:View){
-        stopScanning()
-        ssidList.clear()
-        startScanning()
-        adapter?.notifyDataSetChanged()
-        progress?.visibility = View.VISIBLE
-    }*/
 
     fun openDialog(view: View) {
         val dialog = MaterialDialog(this).show {
@@ -181,21 +219,6 @@ class DeviceSetupActivity : AppCompatActivity() {
         }
     }
 
-    private fun startScanning() {
-        if (checkPermissions()) {
-            registerReceiver(broadcastReceiver, IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
-            wifiReceiverRegistered = true
-            
-        }
-    }
-
-    private fun stopScanning() {
-        if (wifiReceiverRegistered) {
-            unregisterReceiver(broadcastReceiver)
-            wifiReceiverRegistered = false
-        }
-    }
-
     private fun checkPermissions(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
@@ -212,7 +235,7 @@ class DeviceSetupActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION -> {
-                startScanning()
+                Scan()
             }
         }
     }
