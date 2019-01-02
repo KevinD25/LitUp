@@ -14,18 +14,22 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_custom_screen.*
+import kotlinx.android.synthetic.main.activity_device_setup.*
 import me.priyesh.chroma.ChromaDialog
 import me.priyesh.chroma.ColorMode
 import me.priyesh.chroma.ColorSelectListener
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 import org.json.JSONObject
+import java.net.URL
 
 
 class CustomScreenActivity : AppCompatActivity() {
 
 
-    var breedte : Int = 0
-    var hoogte : Int = 0
+    var breedte: Int = 0
+    var hoogte: Int = 0
     private var mColor: Int = -65536
     val buttons: MutableList<ImageButton> = mutableListOf()
     val colors: MutableList<String> = mutableListOf()
@@ -42,7 +46,7 @@ class CustomScreenActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    fun getTableWithAllRowsStretchedView() : LinearLayout {
+    fun getTableWithAllRowsStretchedView(): LinearLayout {
 
         val linearLayout = LinearLayout(this)
         linearLayout.orientation = LinearLayout.VERTICAL
@@ -65,7 +69,7 @@ class CustomScreenActivity : AppCompatActivity() {
 
             for (j in 0..15) {
                 val button = ImageButton(this)
-                button.layoutParams = TableRow.LayoutParams(breedte/16, ((hoogte/10)*7)/14, 1.0f)
+                button.layoutParams = TableRow.LayoutParams(breedte / 16, ((hoogte / 10) * 7) / 14, 1.0f)
 
                 button.setOnTouchListener(object : View.OnTouchListener {
                     override fun onTouch(v: View, m: MotionEvent): Boolean {
@@ -75,10 +79,10 @@ class CustomScreenActivity : AppCompatActivity() {
                     }
                 })
 
-                    buttons.add(button)
+                buttons.add(button)
 
-                    tableRow.addView(button)
-                }
+                tableRow.addView(button)
+            }
             tableLayout.addView(tableRow)
         }
         linearLayout.addView(tableLayout)
@@ -94,17 +98,17 @@ class CustomScreenActivity : AppCompatActivity() {
         hoogte = size.y
     }
 
-    private fun changeColor(button:ImageButton) {
+    private fun changeColor(button: ImageButton) {
         button.setBackgroundColor(mColor)
     }
 
-    private fun updateColorButton(color:Int){
+    private fun updateColorButton(color: Int) {
         btnKleur.setBackgroundColor(color)
     }
 
 
-    fun onClickColorPicker(view:View){
-         ChromaDialog.Builder()
+    fun onClickColorPicker(view: View) {
+        ChromaDialog.Builder()
                 .initialColor(mColor)
                 .colorMode(ColorMode.RGB) // There's also ARGB and HSV
                 .onColorSelected(object : ColorSelectListener {
@@ -113,23 +117,21 @@ class CustomScreenActivity : AppCompatActivity() {
                         mColor = color
                     }
                 })
-        .create()
+                .create()
                 .show(getSupportFragmentManager(), "ChromaDialog");
     }
 
-    fun onClickSave(view:View){
-        if(txtName.text.toString().trim() != ""){
+    fun onClickSave(view: View) {
+        if (txtName.text.toString().trim() != "") {
             colors.clear()
-            var kleurID:Int = 0
+            var kleurID: Int = 0
             var hexColor: String
-            for(item in buttons){
+            for (item in buttons) {
                 var buttonBackground = item.background;
-                if(buttonBackground is ColorDrawable)
-                {
+                if (buttonBackground is ColorDrawable) {
                     kleurID = (buttonBackground as ColorDrawable).color;
                     hexColor = String.format("#%06X", 0xFFFFFF and kleurID)
-                }
-                else{
+                } else {
                     hexColor = "#000000"
                 }
 
@@ -137,30 +139,43 @@ class CustomScreenActivity : AppCompatActivity() {
                 Log.e("KLEUR", hexColor)
             }
             send()
-        }
-        else{
+        } else {
             toast("Please enter a name...")
         }
     }
 
-    fun send(){
+    fun send() {
         var colorstring: String
         colorstring = createString()
+        val ip = "192.168.43.3"
 
+        var param = "&screensaver=" + colorstring
+        doAsync {
+            val result = URL("http://" + ip + "/changesettings?" + param).readText()
+            uiThread {
+                Log.d("Request", result)
+            }
+        }
     }
 
-    fun createString(): String{
-        var output:String = ""
+    fun createScreensaver() {
+        var screensaver: Screensaver
+        //screensaver.name = txtName.text.toString().trim()
+        //TODO Save screensaver in object (list of colors)
+    }
+
+    fun createString(): String {
+        var output: String = ""
         output = txtName.text.toString().trim() + ";"
-        for(item in colors){
+        for (item in colors) {
             output += hex2Rgb(item) + ";"
         }
-        output = output.substring(0, output.length -1)
+        //output = output.substring(0, output.length -1)
         return output
     }
 
     fun hex2Rgb(colorStr: String): String {
-        var kleuren : String
+        var kleuren: String
 
         kleuren = Integer.valueOf(colorStr.substring(1, 3), 16).toString() + "/"
         kleuren += Integer.valueOf(colorStr.substring(3, 5), 16).toString() + "/"
