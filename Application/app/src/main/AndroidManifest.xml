@@ -13,7 +13,7 @@
         android:theme="@style/CustomAppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".CustomScreenActivity" />
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".DeviceSetupActivity"
@@ -27,6 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RegisterLandingActivity" />
+        <activity android:name=".SetupDeviceLandingActivity"></activity>
     </application>
 
 </manifest>
