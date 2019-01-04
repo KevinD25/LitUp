@@ -8,7 +8,7 @@ response = requests.get("http://192.168.0.218/LitUp_API/api/weather")
 playtime = 4
 
 def showGifs(gif):
-	f = open("settings.txt", "rt")
+	f = open("/Webserver/settings.txt", "rt")
 	brightness = f.readline()[12:]
 	pstring = '../Rgb-Matrix/rpi-rgb-led-matrix/utils/led-image-viewer -t ' + str(playtime) + ' ../Rgb-Matrix/rpi-rgb-led-matrix/utils/' + gif + ' --led-gpio-mapping="adafruit-hat-pwm" --led-pixel-mapper="Rotate:270" --led-brightness=' + str(brightness)
 	os.system(pstring)
@@ -29,7 +29,7 @@ for f in list:
 			temp = " " + temp
 	print(temp)
 	line.write(str(temp).encode("UTF-8"))
-	time.sleep(playtime)
+#	time.sleep(playtime)
 	print(f["time"])
 
 	weather = f["weather"]
