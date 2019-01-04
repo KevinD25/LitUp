@@ -69,7 +69,11 @@ def changeSettings():
 		s.write(screensaver)
 		s.close()
                 f.close()
+<<<<<<< HEAD
 		os.system('(sudo python /home/pi/apvalley-1819-litup/Rgb-Matrix/rpi-rgb-led-matrix/bindings/python/samples/screensaver.py -i screensaver) &')
+=======
+		os.system("sudo python ../../Rgb-Matrix/rpi-rgb-led-matrix/bindings/python/samples/screensaver.py -i screensaver --led-gpio-mapping='adafruit-hat-pwm' --led-brightness=70")
+>>>>>>> 26ccd1fff971e92d559e409e1ba79324fc002bf0
         return "data received, changing settings"
 
 if __name__ == "__main__":
