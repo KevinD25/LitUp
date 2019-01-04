@@ -66,9 +66,10 @@ def changeSettings():
                 f.write("sleep time: " + sleep + "\r\n")
                 f.write("wake time: " + wake + "\r\n")
                 f.write("city: " + city)
-				s.write(screensaver)
-				s.close()
+		s.write(screensaver)
+		s.close()
                 f.close()
+		os.system("sudo python ../../Rgb-Matrix/rpi-rgb-led-matrix/bindings/python/samples/screensaver.py -i screensaver --led-gpio-mapping='adafruit-hat-pwm' --led-brightness=70")
         return "data received, changing settings"
 
 if __name__ == "__main__":

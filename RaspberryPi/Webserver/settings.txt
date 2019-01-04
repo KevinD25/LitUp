@@ -1,4 +1,4 @@
+brightness: 
 sleep time: 
 wake time: 
 city: 
-brightness: 
