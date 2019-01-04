@@ -31,22 +31,22 @@ def setup():
                 s.write("brightness: 50")
                 s.close()
 
-#		f = open("/etc/wpa_supplicant/wpa_supplicant.conf", "a")
-#		if not passwd:
-#			f.write("network={ \r\n")
-#			f.write('\tssid=\"' + ssid + '\"\r\n')
-#			f.write('\tkey_mgmt=NONE\r\n')
-#			f.write("}\r\n")
-#			f.close()
-#		else:
-#			f.write("network={ \r\n")
-#			f.write('\tssid=\"' + ssid + '\"\r\n')
-#			f.write('\tpsk=\"' + passwd + '\"\r\n')
-#			f.write('\tkey_mgmt=WPA-PSK\r\n')
-#			f.write("}\r\n")
-#			f.close()
-#		os.system('(cp /usr/share/zoneinfo/Europe/' + timezone + ' /etc/localtime) &')
-#		os.system('(sleep 5; reboot) &')
+		f = open("/etc/wpa_supplicant/wpa_supplicant.conf", "a")
+		if not passwd:
+			f.write("network={ \r\n")
+			f.write('\tssid=\"' + ssid + '\"\r\n')
+			f.write('\tkey_mgmt=NONE\r\n')
+			f.write("}\r\n")
+			f.close()
+		else:
+			f.write("network={ \r\n")
+			f.write('\tssid=\"' + ssid + '\"\r\n')
+			f.write('\tpsk=\"' + passwd + '\"\r\n')
+			f.write('\tkey_mgmt=WPA-PSK\r\n')
+			f.write("}\r\n")
+			f.close()
+		os.system('(cp /usr/share/zoneinfo/Europe/' + timezone + ' /etc/localtime) &')
+		os.system('(sleep 5; reboot) &')
 	return "data received, rebooting now"
 
 @app.route("/changesettings", methods=['GET','POST'])

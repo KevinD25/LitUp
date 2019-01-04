@@ -4,13 +4,13 @@ line = serial.Serial( port='/dev/ttyUSB0',baudrate=9600)
 
 import requests, json, time, os
 
-response = requests.get("http://192.168.0.218/LitUp_API/api/weather")
+response = requests.get("http://192.168.137.1/LitUp_API/api/weather")
 playtime = 4
 
 def showGifs(gif):
-	f = open("Webserver/settings.txt", "rt")
+	f = open("/home/pi/Documents/School/apvalley-1819-litup/RaspberryPi/Webserver/settings.txt", "rt")
 	brightness = f.readline()[12:]
-	pstring = 'sudo ../Rgb-Matrix/rpi-rgb-led-matrix/utils/led-image-viewer -t ' + str(playtime) + ' ../Rgb-Matrix/rpi-rgb-led-matrix/utils/' + gif + ' --led-gpio-mapping="adafruit-hat-pwm" --led-pixel-mapper="Rotate:270" --led-brightness=100'
+	pstring = 'sudo /home/pi/Documents/School/apvalley-1819-litup/Rgb-Matrix/rpi-rgb-led-matrix/utils/led-image-viewer -t ' + str(playtime) + ' /home/pi/Documents/School/apvalley-1819-litup/Rgb-Matrix/rpi-rgb-led-matrix/utils/' + gif + ' --led-gpio-mapping="adafruit-hat-pwm" --led-pixel-mapper="Rotate:270" --led-brightness=100'
 	os.system(pstring)
 	print(pstring)
 	print("show Gif")
@@ -47,4 +47,4 @@ for f in list:
 	elif weather == "Clear":
 		showGifs("sun.gif")
 	elif weather == "Clouds":
-		showGifs("clouds.gif")
+		showGifs("cloud-rain.gif")
