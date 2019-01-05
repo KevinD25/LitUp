@@ -31,10 +31,12 @@ class StartActivity : AppCompatActivity() {
             "Login" -> {
                 intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
             "Register" -> {
                 intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
             else -> {
                 print("Error starting activity")
@@ -43,12 +45,14 @@ class StartActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        moveTaskToBack(true)
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private fun startMainactivity(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     override fun onStart() {

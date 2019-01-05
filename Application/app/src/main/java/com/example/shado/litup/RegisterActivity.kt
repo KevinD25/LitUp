@@ -74,14 +74,17 @@ open class RegisterActivity : AppCompatActivity() {
         if(pass.length >= 8){
             var PATTERN_ = "(?=.*[0-9]+)(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*[@#\\$%^&+=!]+).*"
             var pattern = Pattern.compile(PATTERN_)
-            if(pattern.matcher(pass).matches())
-                return true
-            else return false
+            return pattern.matcher(pass).matches()
         }else return false
     }
 
     private fun startMainactivity(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

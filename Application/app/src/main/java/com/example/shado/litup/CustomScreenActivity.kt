@@ -106,7 +106,6 @@ class CustomScreenActivity : AppCompatActivity() {
         btnKleur.setBackgroundColor(color)
     }
 
-
     fun onClickColorPicker(view: View) {
         ChromaDialog.Builder()
                 .initialColor(mColor)
@@ -182,5 +181,10 @@ class CustomScreenActivity : AppCompatActivity() {
         kleuren += Integer.valueOf(colorStr.substring(5, 7), 16).toString()
 
         return kleuren
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

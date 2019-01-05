@@ -74,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
     private fun startMainactivity(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     override fun onStart() {
@@ -82,5 +83,10 @@ class LoginActivity : AppCompatActivity() {
             val currentUser = auth.currentUser
             startMainactivity()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }
