@@ -27,18 +27,18 @@
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
         </activity>
-        <activity android:name=".RegisterActivity" >
+        <activity android:name=".RegisterActivity">
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
         </activity>
         <activity
             android:name=".DeviceSetupActivity"
             android:label="@string/title_activity_device_setup"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
         </activity>
-        <activity android:name=".ChangeSettingsActivity" >
+        <activity android:name=".ChangeSettingsActivity">
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
         </activity>
@@ -59,6 +59,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RegisterConfirmActivity"></activity>
     </application>
 
 </manifest>
