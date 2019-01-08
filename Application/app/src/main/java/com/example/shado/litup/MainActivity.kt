@@ -25,12 +25,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.)
         setContentView(R.layout.activity_main)
 
         btn_devicesetup.setOnClickListener{
             val intent = Intent(this, DeviceSetupActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 
         btn_changesettings.setOnClickListener {
@@ -62,6 +63,12 @@ class MainActivity : AppCompatActivity() {
 
         btnHelp.setOnClickListener{
 
+        }
+
+        btn_setup.setOnClickListener {
+            val intent = Intent(this, SetupDeviceLandingActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 

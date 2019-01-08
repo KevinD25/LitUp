@@ -12,8 +12,13 @@ class SetupDeviceLandingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_setup_device_landing)
 
         btn_continue.setOnClickListener {
-            val intent = Intent(this, SetupDeviceActivity::class.java)
-            startActivity(intent)
+            StartNextActivity()
         }
+    }
+
+    private fun StartNextActivity(){
+        val intent = Intent(this, SetupDeviceActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

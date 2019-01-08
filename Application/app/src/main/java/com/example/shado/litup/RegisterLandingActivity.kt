@@ -12,9 +12,9 @@ class RegisterLandingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register_landing)
 
         btn_setup.setOnClickListener {
-            //TODO: Add intent to next page
             val intent = Intent(this, SetupDeviceLandingActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 }
