@@ -13,8 +13,8 @@ class RegisterLandingActivity : AppCompatActivity() {
 
         btn_setup.setOnClickListener {
             //TODO: Add intent to next page
-            /*val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, SetupDeviceLandingActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -61,7 +61,8 @@
         </activity>
         <activity android:name=".RegisterConfirmActivity" />
         <activity android:name=".SetupDeviceActivity" />
-        <activity android:name=".SetupDeviceWifiActivity"></activity>
+        <activity android:name=".SetupDeviceWifiActivity" />
+        <activity android:name=".SetupDeviceWifiPass"></activity>
     </application>
 
 </manifest>
