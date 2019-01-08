@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.)
         setContentView(R.layout.activity_main)
 
         btn_devicesetup.setOnClickListener{
