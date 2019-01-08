@@ -26,7 +26,7 @@ SegmentDecoder::SegmentDecoder() {
 void SegmentDecoder::showDigit(int getal, int cathode) {
   int _leds[7] = {2 /*A*/, 3 /*B*/, 4 /*C*/, 5 /*D*/, 6 /*E*/, 7 /*F*/, 8 /*G*/};
   int _cath[4] = {9 /*1*/, 10 /*2*/, 11 /*3*/, 12 /*4*/};
-  byte getallen[13][7] = {
+  byte getallen[17][7] = {
     {1, 1, 1, 1, 1, 1, 0},
     {0, 1, 1, 0, 0, 0, 0},
     {1, 1, 0, 1, 1, 0, 1},
@@ -38,7 +38,12 @@ void SegmentDecoder::showDigit(int getal, int cathode) {
     {1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 0, 1, 1},
     {1, 1, 0, 0, 0, 1, 1}, //°
-    {0, 0, 0, 0, 0, 0, 1}  //-
+    {0, 0, 0, 0, 0, 0, 1}, //-
+    {0, 1, 0, 0, 0, 1, 1}, // loading top open
+    {1, 1, 0, 0, 0, 0, 1}, // loading left open
+    {1, 1, 0, 0, 0, 1, 0}, // loading under open
+    {1, 0, 0, 0, 0, 1, 1}, // loading right open
+    {0, 0, 0, 0, 0, 0, 0}  // clear
   };
   int _cathode = cathode;
 
