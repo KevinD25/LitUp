@@ -13,21 +13,21 @@ namespace BusinessLayer
     {
         private readonly LitUpContext context;
         private string apiKey = "2c165f1b7fbd650cf068827adc8eb952";
-        private int count = 2;
+        private int count = 4;
 
         public WeatherService(LitUpContext context)
         {
             this.context = context;
         }
 
-        public async Task<ReturnData> forecastAntwerp()
+        public async Task<ReturnData> forecastAntwerp(string location = "antwerp")
         {
             using (var client = new HttpClient())
             {
                 try
                 {
                     client.BaseAddress = new Uri("http://api.openweathermap.org");
-                    var response = await client.GetAsync($"/data/2.5/forecast?q=antwerp&cnt={count}&appid={apiKey}");
+                    var response = await client.GetAsync($"/data/2.5/forecast?q={location}&cnt={count}&appid={apiKey}");
                     response.EnsureSuccessStatusCode();
                     var stringResult = await response.Content.ReadAsStringAsync();
                     var forecast = getData(stringResult);
