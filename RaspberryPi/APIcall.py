@@ -4,7 +4,7 @@ line = serial.Serial( port='/dev/ttyUSB0',baudrate=9600)
 
 import requests, json, time, os
 
-response = requests.get("http://192.168.0.218/LitUp_API/api/weather")
+response = requests.get("http://192.168.1.36/LitUp_API/api/weather")
 playtime = 4
 
 def showGifs(gif):
@@ -47,4 +47,4 @@ for f in list:
 	elif weather == "Clear":
 		showGifs("sun.gif")
 	elif weather == "Clouds":
-		showGifs("clouds.gif")
+		showGifs("cloud-rain.gif")
