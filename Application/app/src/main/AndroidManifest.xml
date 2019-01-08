@@ -59,7 +59,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterConfirmActivity"></activity>
+        <activity android:name=".RegisterConfirmActivity" />
+        <activity android:name=".SetupDeviceActivity" />
+        <activity android:name=".SetupDeviceWifiActivity"></activity>
     </application>
 
 </manifest>
