@@ -78,7 +78,9 @@ your smartphone"
             android:text="Go to next step by choosing the
 device you want to configure"
             android:textSize="14dp"/>
+
         <ListView
+            android:id="@+id/listLitup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></ListView>
 

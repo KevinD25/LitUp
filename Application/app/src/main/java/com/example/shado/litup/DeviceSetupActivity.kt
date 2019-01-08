@@ -40,7 +40,6 @@ class DeviceSetupActivity : AppCompatActivity() {
     var gekozenWifi : String = ""
     var progress  : ProgressBar? = null
 
-
     companion object {
         private const val PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 120
     }
