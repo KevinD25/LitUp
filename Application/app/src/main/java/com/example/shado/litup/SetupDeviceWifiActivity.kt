@@ -3,6 +3,7 @@ package com.example.shado.litup
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_setup_device_wifi.*
 
 class SetupDeviceWifiActivity : AppCompatActivity() {
 
@@ -10,7 +11,9 @@ class SetupDeviceWifiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup_device_wifi)
 
-        StartNextActivity()
+        btn_back.setOnClickListener {
+            StartNextActivity()
+        }
     }
 
     private fun StartNextActivity(){

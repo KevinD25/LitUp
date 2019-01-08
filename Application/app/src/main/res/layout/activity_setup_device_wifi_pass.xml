@@ -110,7 +110,7 @@ network password"
             android:paddingBottom="40dp">
 
             <Button
-                android:id="@+id/btn_setup"
+                android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Next"
