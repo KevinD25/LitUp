@@ -4,7 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import com.example.shado.litup.Model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -55,6 +55,14 @@ class MainActivity : AppCompatActivity() {
             logout()
 
         }
+
+        btnUserSettings.setOnClickListener{
+
+        }
+
+        btnHelp.setOnClickListener{
+
+        }
     }
 
     override fun onStart() {
@@ -81,9 +89,15 @@ class MainActivity : AppCompatActivity() {
         disposable?.dispose()
     }
 
-    fun logout(){
+    private fun logout(){
         FirebaseAuth.getInstance().signOut()
         startLoginActivity()
+    }
+
+    private fun userSettings(){
+        val intent = Intent(this, StartActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private fun startLoginActivity(){
@@ -92,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    fun setUser(user : User){
+    private fun setUser(user : User){
         currentUserInfo = user
         Log.d(TAG, user.Id.toString())
     }
