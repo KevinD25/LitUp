@@ -9,4 +9,5 @@
     <color name="customPrimary">#2ea36a</color>
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
+    <color name="Gray">#8e8e8e</color>
 </resources>

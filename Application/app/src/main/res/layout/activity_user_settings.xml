@@ -96,13 +96,15 @@
                 android:text="Username"
                 android:layout_gravity="center"
                 android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:id="@+id/textView5"
@@ -134,7 +136,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -159,7 +162,8 @@
                 android:text="Change password"
                 android:layout_gravity="center"
                 android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginBottom="15dp"/>
 
             <TextView
                 android:id="@+id/textView14"
@@ -167,7 +171,8 @@
                 android:layout_height="wrap_content"
                 android:text="Old password"
                 android:layout_gravity="center"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/editText5"
@@ -177,7 +182,10 @@
                 android:inputType="textPassword"
                 android:hint="Old password"
                 android:textSize="14dp"
-                android:background="@drawable/rounded_edittext"/>
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginBottom="5dp"
+                android:textColorHint="@color/Gray"
+                android:paddingLeft="20dp"/>
 
             <TextView
                 android:id="@+id/textView15"
@@ -185,7 +193,8 @@
                 android:layout_height="wrap_content"
                 android:text="New password"
                 android:layout_gravity="center"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/editText6"
@@ -195,7 +204,11 @@
                 android:inputType="textPassword"
                 android:hint="New password"
                 android:textSize="14dp"
-                android:background="@drawable/rounded_edittext"/>
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginBottom="5dp"
+                android:textColorHint="@color/Gray"
+                android:paddingLeft="20dp"
+                />
 
             <TextView
                 android:id="@+id/textView16"
@@ -203,7 +216,8 @@
                 android:layout_height="wrap_content"
                 android:text="Repeat password"
                 android:layout_gravity="center"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/editText7"
@@ -215,11 +229,13 @@
                 android:textSize="14dp"
                 android:background="@drawable/rounded_edittext"
                 android:layout_marginBottom="30dp"
+                android:textColorHint="@color/Gray"
+                android:paddingLeft="20dp"
                 />
 
             <Button
                 android:id="@+id/button4"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="SAVE CHANGES"
                 android:textColor="@color/White"
