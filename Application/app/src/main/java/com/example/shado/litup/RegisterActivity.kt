@@ -44,7 +44,7 @@ open class RegisterActivity : AppCompatActivity() {
 
         etxt_pass.setOnFocusChangeListener { view, b ->
             if(!checkPassValid(etxt_pass.text.toString())) {
-                etxt_pass.setError("Password must include at least one upper case, one lowercase one number and one special character")
+                etxt_pass.setError("Password must include at least one upper case, one lowercase,  one number and one special character")
                 btn_register.isEnabled = false
             }else btn_register.isEnabled = true
         }
@@ -74,14 +74,18 @@ open class RegisterActivity : AppCompatActivity() {
         if(pass.length >= 8){
             var PATTERN_ = "(?=.*[0-9]+)(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*[@#\\$%^&+=!]+).*"
             var pattern = Pattern.compile(PATTERN_)
-            if(pattern.matcher(pass).matches())
-                return true
-            else return false
+            return pattern.matcher(pass).matches()
         }else return false
     }
 
     private fun startMainactivity(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

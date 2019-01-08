@@ -15,7 +15,9 @@ createHotSpot()
 if !(wpa_cli -i "wlan0" status | grep 'ip_address' >/dev/null)
 then
         echo "No wifi connection found"
+	sudo python /home/pi/Documents/School/apvalley-1819-litup/Rgb-Matrix/rpi-rgb-led-matrix/bindings/python/samples/screensaver.py -i /home/pi/Documents/School/apvalley-1819-litup/RaspberryPi/wifi --led-gpio-mapping='adafruit-hat-pwm' --led-brightness=70
         createHotSpot
 else
         echo "Wifi connection found"
+	sudo python /home/pi/Documents/School/apvalley-1819-litup/RaspberryPi/APIcall.py
 fi

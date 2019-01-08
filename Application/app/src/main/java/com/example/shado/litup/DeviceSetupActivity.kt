@@ -183,7 +183,6 @@ class DeviceSetupActivity : AppCompatActivity() {
         return (ssid != "" && passwd != "" && city != "" && temp != "")
     }
 
-
     fun openDialog(view: View) {
         val dialog = MaterialDialog(this).show {
             customView(R.layout.customwifidialog)
@@ -238,5 +237,10 @@ class DeviceSetupActivity : AppCompatActivity() {
                 Scan()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }
