@@ -31,10 +31,10 @@ def setup():
 
 		s = open("settings.txt", "w")
 		s.write("sleep time: 22:00\r\n")
-                s.write("wake time: 08:00\r\n")
-                s.write("city: " + city + "\r\n")
-                s.write("brightness: 50")
-                s.close()
+		s.write("wake time: 08:00\r\n")
+		s.write("city: " + city + "\r\n")
+		s.write("brightness: 50")
+		s.close()
 
 		f = open("/etc/wpa_supplicant/wpa_supplicant.conf", "a")
 		if not passwd:
@@ -56,26 +56,26 @@ def setup():
 
 @app.route("/changesettings", methods=['GET','POST'])
 def changeSettings():
-        if request.method == 'GET':
-                global sleep,wake,city,brightness,screensaver
+	if request.method == 'GET':
+		global sleep,wake,city,brightness,screensaver
 
-                sleep = request.args.get('sleep', sleep)
-                wake = request.args.get('wake', wake)
-                city = request.args.get('city', city)
-                brightness = request.args.get('brightness', brightness)
+		sleep = request.args.get('sleep', sleep)
+		wake = request.args.get('wake', wake)
+		city = request.args.get('city', city)
+		brightness = request.args.get('brightness', brightness)
 		screensaver = request.args.get('screensaver', screensaver)
-                print(sleep + " " + wake + " " + city + " " + brightness)
+		print(sleep + " " + wake + " " + city + " " + brightness)
 		s = open("screensaver", "w")
-                f = open("settings.txt", "w")
-                f.write("brightness: " + brightness + "\r\n")
-                f.write("sleep time: " + sleep + "\r\n")
-                f.write("wake time: " + wake + "\r\n")
-                f.write("city: " + city)
+		f = open("settings.txt", "w")
+		f.write("brightness: " + brightness + "\r\n")
+		f.write("sleep time: " + sleep + "\r\n")
+		f.write("wake time: " + wake + "\r\n")
+		f.write("city: " + city)
 		s.write(screensaver)
 		s.close()
-                f.close()
+		f.close()
 		os.system("sudo python ../../Rgb-Matrix/rpi-rgb-led-matrix/bindings/python/samples/screensaver.py -i screensaver --led-gpio-mapping='adafruit-hat-pwm' --led-brightness=70")
-        return "data received, changing settings"
+	return "data received, changing settings"
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, debug=True)
+	app.run(host='0.0.0.0', port=80, debug=True)
