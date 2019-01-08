@@ -12,6 +12,11 @@ wake = ""
 brightness = ""
 screensaver = ""
 
+@app.route("/check", methods=['GET'])
+def check():
+	if request.method == 'GET':
+		return 'Ok'
+
 @app.route("/setup", methods=['GET','POST'])
 def setup():
 	if request.method == 'GET':
