@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.SeekBar
+import com.example.shado.litup.Model.Settings
+import com.example.shado.litup.Model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_device_change_settings.*
-import kotlinx.android.synthetic.main.activity_device_setup.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread

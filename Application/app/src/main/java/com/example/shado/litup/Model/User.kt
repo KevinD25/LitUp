@@ -1,4 +1,4 @@
-package com.example.shado.litup
+package com.example.shado.litup.Model
 
 /**
  * Created by Jorren on 13/12/2018.
