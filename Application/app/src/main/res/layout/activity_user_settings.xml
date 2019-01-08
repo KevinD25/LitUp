@@ -86,7 +86,8 @@
                 android:layout_height="wrap_content"
                 android:text="User settings"
                 android:layout_gravity="center"
-                android:textSize="24dp"/>
+                android:textSize="24dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textView12"
@@ -94,7 +95,8 @@
                 android:layout_height="wrap_content"
                 android:text="Username"
                 android:layout_gravity="center"
-                android:textSize="18dp"/>
+                android:textSize="18dp"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -125,7 +127,8 @@
                 android:layout_height="wrap_content"
                 android:text="Email"
                 android:layout_gravity="center"
-                android:textSize="18dp"/>
+                android:textSize="18dp"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -155,7 +158,8 @@
                 android:layout_height="wrap_content"
                 android:text="Change password"
                 android:layout_gravity="center"
-                android:textSize="18dp"/>
+                android:textSize="18dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textView14"
@@ -168,11 +172,12 @@
             <EditText
                 android:id="@+id/editText5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="Old password"
-                android:textSize="14dp"/>
+                android:textSize="14dp"
+                android:background="@drawable/rounded_edittext"/>
 
             <TextView
                 android:id="@+id/textView15"
@@ -185,11 +190,12 @@
             <EditText
                 android:id="@+id/editText6"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="New password"
-                android:textSize="14dp"/>
+                android:textSize="14dp"
+                android:background="@drawable/rounded_edittext"/>
 
             <TextView
                 android:id="@+id/textView16"
@@ -202,11 +208,13 @@
             <EditText
                 android:id="@+id/editText7"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="Repeat password"
                 android:textSize="14dp"
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginBottom="30dp"
                 />
 
             <Button
@@ -215,7 +223,8 @@
                 android:layout_height="wrap_content"
                 android:text="SAVE CHANGES"
                 android:textColor="@color/White"
-                android:backgroundTint="@color/customPrimary"/>
+                android:backgroundTint="@color/customPrimary"
+                android:textStyle="bold"/>
         </LinearLayout>
 
     </LinearLayout>
