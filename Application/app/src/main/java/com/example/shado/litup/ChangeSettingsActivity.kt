@@ -1,5 +1,7 @@
 package com.example.shado.litup
 
+import android.net.nsd.NsdManager
+import android.net.nsd.NsdServiceInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -37,6 +39,34 @@ class ChangeSettingsActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        val mDiscoveryListener = object : NsdManager.DiscoveryListener {
+            override fun onServiceFound(srv : NsdServiceInfo?) {
+                Log.d(TAG, "service found")
+                Log.d(TAG, srv.toString())
+            }
+
+            override fun onStopDiscoveryFailed(p0: String?, p1: Int) {
+                Log.d(TAG, "discovery stop failed")
+            }
+
+            override fun onStartDiscoveryFailed(p0: String?, p1: Int) {
+                Log.d(TAG, "discovery start failed")
+            }
+
+            override fun onDiscoveryStarted(p0: String?) {
+                Log.d(TAG, "discovery started")
+            }
+
+            override fun onDiscoveryStopped(p0: String?) {
+                Log.d(TAG, "discovery stopped")
+            }
+
+            override fun onServiceLost(p0: NsdServiceInfo?) {
+                Log.d(TAG, "service lost")
+            }
+
+        }
+
         var extras = intent.extras
         if(extras != null)
             settingsId = (extras["settingsId"] as Number).toInt()
@@ -60,6 +90,13 @@ class ChangeSettingsActivity : AppCompatActivity() {
         txt_wake.setOnClickListener{
             val newFragment = TimePickerFragment()
             newFragment.show(fragmentManager, "Time Picker")
+        }
+
+        btn_test.setOnClickListener {
+            doAsync {
+                val result = URL("http://192.168.137.100/check").readText()
+                uiThread { Log.d(TAG, result) }
+            }
         }
 
         btn_save.setOnClickListener{
@@ -90,7 +127,7 @@ class ChangeSettingsActivity : AppCompatActivity() {
             var param = "sleep=" + sleepTime + "&wake=" + wakeTime + "&city=" + city + "&brightness=" + brightness
             if(emptycheck(city, brightness, sleepTime, wakeTime)) {
                 doAsync {
-                    val result = URL("http://192.168.137.125/changesettings?" + param).readText()
+                    val result = URL("http://192.168.137.100/changesettings?" + param).readText()
                     uiThread {
                         Log.d("Request", result)
                         //lbl_response.text = result
