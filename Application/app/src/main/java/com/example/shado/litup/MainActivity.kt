@@ -58,11 +58,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnUserSettings.setOnClickListener{
-
+            userSettings()
         }
 
         btnHelp.setOnClickListener{
-
+            FAQ()
         }
 
         btn_setup.setOnClickListener {
@@ -102,7 +102,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun userSettings(){
-        val intent = Intent(this, StartActivity::class.java)
+        val intent = Intent(this, UserSettingsActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    private fun FAQ(){
+        val intent = Intent(this, FAQActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }

@@ -7,4 +7,6 @@
     <color name="customBackground">#1b1b1b</color>
     <color name="customAccent">#318fce</color>
     <color name="customPrimary">#2ea36a</color>
+    <color name="White">#FFFFFF</color>
+    <color name="Black">#000000</color>
 </resources>
