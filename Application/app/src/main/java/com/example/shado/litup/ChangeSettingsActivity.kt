@@ -127,7 +127,7 @@ class ChangeSettingsActivity : AppCompatActivity() {
             var param = "sleep=" + sleepTime + "&wake=" + wakeTime + "&city=" + city + "&brightness=" + brightness
             if(emptycheck(city, brightness, sleepTime, wakeTime)) {
                 doAsync {
-                    val result = URL("http://192.168.137.100/changesettings?" + param).readText()
+                    val result = URL("http://192.168.137.60/changesettings?" + param).readText()
                     uiThread {
                         Log.d("Request", result)
                         //lbl_response.text = result

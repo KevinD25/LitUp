@@ -147,11 +147,11 @@ class CustomScreenActivity : AppCompatActivity() {
     fun send() {
         var colorstring: String
         colorstring = createString()
-        val ip = "192.168.43.3"
+        val ip = "192.168.137.60"
 
         var param = "&screensaver=" + colorstring
         doAsync {
-            val result = URL("http://" + ip + "/changesettings?" + param).readText()
+            val result = URL("http://" + ip + "/screensaver?" + param).readText()
             uiThread {
                 Log.d("Request", result)
             }
