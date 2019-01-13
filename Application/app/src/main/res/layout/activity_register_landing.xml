@@ -22,6 +22,7 @@
             android:layout_marginBottom="60dp"/>
 
         <TextView
+            android:id="@+id/txt_ltitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -29,6 +30,7 @@
             android:textSize="18dp"
             android:layout_marginBottom="20dp"/>
         <TextView
+            android:id="@+id/txt_ldetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
