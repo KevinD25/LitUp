@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_setup_device.*
 import kotlinx.android.synthetic.main.activity_setup_device_wifi.*
@@ -45,7 +46,8 @@ class SetupDeviceWifiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup_device_wifi)
 
-        btn_back.setOnClickListener {
+        val btnBack : Button = findViewById(R.id.btn_back)
+        btnBack.setOnClickListener {
             StartNextActivity()
         }
 

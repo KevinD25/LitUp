@@ -17,6 +17,9 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_device_setup.*
 import kotlinx.android.synthetic.main.activity_setup_device.*
 import java.util.ArrayList
+import android.net.wifi.WifiConfiguration
+import android.widget.Button
+
 
 @Suppress("DEPRECATION")
 class SetupDeviceActivity : AppCompatActivity() {
@@ -45,7 +48,9 @@ class SetupDeviceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup_device)
 
-        btn_back.setOnClickListener {
+
+        val btnBack : Button = findViewById(R.id.btn_back)
+        btnBack.setOnClickListener {
             StartNextActivity()
         }
 
@@ -127,8 +132,29 @@ class SetupDeviceActivity : AppCompatActivity() {
             listLitup.setOnItemClickListener{
                 adapterView : AdapterView<*>?, view : View?, position : Int, id : Long ->
                 //TODO WIFI CLICKED
+                val ssid = ssidList[position]
+                connect("", ssid) //Password not needed
             }
         }
+    }
+
+    private fun connect(networkPass: String, networkSSID: String) {
+        val wifiConfig = WifiConfiguration()
+        wifiConfig.SSID = String.format("\"%s\"", networkSSID)
+        //wifiConfig.preSharedKey = String.format("\"%s\"", networkPass)
+
+        // remember id
+        val netId = wifiManager.addNetwork(wifiConfig)
+        wifiManager.disconnect()
+        wifiManager.enableNetwork(netId, true)
+        wifiManager.reconnect()
+
+        val conf = WifiConfiguration()
+        conf.SSID = "\"\"" + networkSSID + "\"\""
+        //conf.preSharedKey = "\"" + networkPass + "\""
+        wifiManager.addNetwork(conf)
+
+        //TODO next activity
     }
 
     private fun checkPermissions(): Boolean {
