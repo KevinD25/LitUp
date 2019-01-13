@@ -66,7 +66,7 @@ class SetupDeviceActivity : AppCompatActivity() {
 
     private fun StartNextActivity(){
         val intent = Intent(this, RegisterLandingActivity::class.java)
-        intent.putExtra("prev", "device");
+        intent.putExtra("prev", "device")
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
