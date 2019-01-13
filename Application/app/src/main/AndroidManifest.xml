@@ -61,9 +61,10 @@
         </activity>
         <activity android:name=".SetupDeviceActivity" />
         <activity android:name=".SetupDeviceWifiActivity" />
-        <activity android:name=".SetupDeviceWifiPass"></activity>
+        <activity android:name=".SetupDeviceWifiPass" />
         <activity android:name=".UserSettingsActivity" />
-        <activity android:name=".FAQActivity"></activity>
+        <activity android:name=".FAQActivity" />
+        <activity android:name=".HomeActivity"></activity>
     </application>
 
 </manifest>
