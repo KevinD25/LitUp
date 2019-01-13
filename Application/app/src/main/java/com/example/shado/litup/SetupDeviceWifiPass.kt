@@ -17,7 +17,8 @@ class SetupDeviceWifiPass : AppCompatActivity() {
     }
 
     private fun StartNextActivity(){
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, RegisterLandingActivity::class.java)
+        intent.putExtra("prev", "wifi")
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
