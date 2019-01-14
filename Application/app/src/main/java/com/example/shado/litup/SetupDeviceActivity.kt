@@ -51,7 +51,7 @@ class SetupDeviceActivity : AppCompatActivity() {
 
         val btnBack : Button = findViewById(R.id.btn_back)
         btnBack.setOnClickListener {
-            StartNextActivity()
+            super.onBackPressed()
         }
 
         wifiManager = this.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
@@ -156,6 +156,7 @@ class SetupDeviceActivity : AppCompatActivity() {
         wifiManager.addNetwork(conf)
 
         //TODO next activity
+        StartNextActivity()
     }
 
     private fun checkPermissions(): Boolean {
