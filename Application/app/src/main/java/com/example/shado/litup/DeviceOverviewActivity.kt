@@ -72,7 +72,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
         })
-        
+
 
         /*btn_test.setOnClickListener {
             doAsync {
