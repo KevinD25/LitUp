@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable
 import android.net.sip.SipSession
 import android.net.wifi.WifiManager
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.format.Formatter
 import android.util.Log
@@ -16,15 +15,14 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
+import com.example.shado.litup.Model.Screensaver
 import kotlinx.android.synthetic.main.activity_custom_screen.*
-import kotlinx.android.synthetic.main.activity_device_setup.*
 import me.priyesh.chroma.ChromaDialog
 import me.priyesh.chroma.ColorMode
 import me.priyesh.chroma.ColorSelectListener
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
-import org.json.JSONObject
 import java.net.URL
 
 
@@ -108,7 +106,6 @@ class CustomScreenActivity : AppCompatActivity() {
     private fun updateColorButton(color: Int) {
         btnKleur.setBackgroundColor(color)
     }
-
 
     fun onClickColorPicker(view: View) {
         ChromaDialog.Builder()
@@ -195,5 +192,10 @@ class CustomScreenActivity : AppCompatActivity() {
         kleuren += Integer.valueOf(colorStr.substring(5, 7), 16).toString()
 
         return kleuren
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

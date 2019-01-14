@@ -1,4 +1,4 @@
-package com.example.shado.litup
+package com.example.shado.litup.Model
 
 class Screensaver {
     private lateinit var name: String

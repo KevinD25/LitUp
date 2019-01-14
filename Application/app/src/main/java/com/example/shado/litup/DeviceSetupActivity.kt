@@ -20,6 +20,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import kotlinx.android.synthetic.main.activity_device_setup.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.customwifidialog.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
@@ -39,7 +40,6 @@ class DeviceSetupActivity : AppCompatActivity() {
     var gekozenWifi : String = ""
     var progress  : ProgressBar? = null
 
-
     companion object {
         private const val PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 120
     }
@@ -55,8 +55,6 @@ class DeviceSetupActivity : AppCompatActivity() {
             }
         }
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -145,7 +143,7 @@ class DeviceSetupActivity : AppCompatActivity() {
         }
     }
 
-    fun send() {
+    private fun send() {
         var ssid = txt_ssid.text
         var passwd = txt_pass.text
         var city = txt_city.text
@@ -179,12 +177,11 @@ class DeviceSetupActivity : AppCompatActivity() {
         }
     }
 
-    fun emptycheck(ssid: String, passwd: String, city: String, temp: String): Boolean {
+    private fun emptycheck(ssid: String, passwd: String, city: String, temp: String): Boolean {
         return (ssid != "" && passwd != "" && city != "" && temp != "")
     }
 
-
-    fun openDialog(view: View) {
+    private fun openDialog(view: View) {
         val dialog = MaterialDialog(this).show {
             customView(R.layout.customwifidialog)
         }
@@ -239,4 +236,11 @@ class DeviceSetupActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+
 }

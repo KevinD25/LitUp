@@ -1,8 +1,10 @@
 package com.example.shado.litup;
 
+import com.example.shado.litup.Model.Settings;
+import com.example.shado.litup.Model.User;
+
 import io.reactivex.Observable;
 
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;

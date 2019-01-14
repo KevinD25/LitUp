@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomAppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:button">@color/customPrimary</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/customPrimary</item>
+        <item name="colorAccent">@color/customAccent</item>
+        <item name="android:colorBackground">@color/customBackground</item>
+        <item name="android:statusBarColor">@color/customPrimary</item>
+        <item name="colorPrimaryDark">@color/customPrimary</item>
+    </style>
+</resources>

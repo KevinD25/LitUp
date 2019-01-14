@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.shado.litup.Model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser : FirebaseUser
     private var firebaseToken : String? = null
-    private var currentUserInfo : User? = null
+    private var currentUserInfo : User? = null  // changed due to error
 
     private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
 
@@ -32,20 +33,23 @@ class MainActivity : AppCompatActivity() {
         btn_devicesetup.setOnClickListener{
             val intent = Intent(this, DeviceSetupActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 
         btn_changesettings.setOnClickListener {
             val intent = Intent(this, ChangeSettingsActivity::class.java)
             if(currentUserInfo != null)
                 if(currentUserInfo?.PersonalSettings != null)
-                    intent.putExtra("settingsId", currentUserInfo?.PersonalSettings?.Id)
+                    intent.putExtra("settingsId", currentUserInfo!!.PersonalSettings.Id)
             else intent.putExtra("settingsId", 0)
             startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
         btn_screensaver.setOnClickListener {
             val intent = Intent(this, CustomScreenActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
         auth = FirebaseAuth.getInstance()
@@ -53,6 +57,20 @@ class MainActivity : AppCompatActivity() {
         btn_logout.setOnClickListener {
             logout()
 
+        }
+
+        btnUserSettings.setOnClickListener{
+            userSettings()
+        }
+
+        btnHelp.setOnClickListener{
+            FAQ()
+        }
+
+        btn_setup.setOnClickListener {
+            val intent = Intent(this, SetupDeviceLandingActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 
@@ -85,17 +103,30 @@ class MainActivity : AppCompatActivity() {
         disposable?.dispose()
     }
 
-    fun logout(){
+    private fun logout(){
         FirebaseAuth.getInstance().signOut()
         startLoginActivity()
     }
 
-    private fun startLoginActivity(){
-        val intent = Intent(this, LoginActivity::class.java)
+    private fun userSettings(){
+        val intent = Intent(this, UserSettingsActivity::class.java)
         startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    fun setUser(user : User){
+    private fun FAQ(){
+        val intent = Intent(this, FAQActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    private fun startLoginActivity(){
+        val intent = Intent(this, StartActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    private fun setUser(user : User){
         currentUserInfo = user
         Log.d(TAG, user.Id.toString())
         if(currentUserInfo?.PersonalSettings != null){
@@ -112,5 +143,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         moveTaskToBack(true)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }
