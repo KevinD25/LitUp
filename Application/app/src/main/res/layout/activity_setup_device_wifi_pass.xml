@@ -79,13 +79,14 @@ network password"
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/txtWifiNetwork"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
             android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
             android:text="My wifi network"
-            android:textSize="14dp"/>
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -97,14 +98,17 @@ network password"
             android:textStyle="bold"/>
 
         <EditText
+            android:id="@+id/etxtPassword"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:hint="Password"
-            android:textColorHint="@color/Gray"
-            android:textColor="@color/Black"
-            android:background="@drawable/rounded_edittext"
             android:layout_marginTop="10dp"
-            android:paddingLeft="20dp"/>
+            android:background="@drawable/rounded_edittext"
+            android:maxLines="1"
+            android:hint="Password"
+            android:paddingLeft="20dp"
+            android:singleLine="true"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Gray" />
 
         <LinearLayout
             android:layout_width="match_parent"

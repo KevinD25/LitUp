@@ -47,7 +47,7 @@ class SetupDeviceWifiActivity : AppCompatActivity() {
 
         val btnBack : Button = findViewById(R.id.btn_back)
         btnBack.setOnClickListener {
-            StartNextActivity()
+           super.onBackPressed()
         }
 
         wifiManager = this.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
@@ -65,11 +65,6 @@ class SetupDeviceWifiActivity : AppCompatActivity() {
         Scan()
     }
 
-    private fun StartNextActivity(){
-        val intent = Intent(this, SetupDeviceWifiPass::class.java)
-        startActivity(intent)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-    }
 
     private fun Scan(){
         if(checkPermissions()){
@@ -125,9 +120,17 @@ class SetupDeviceWifiActivity : AppCompatActivity() {
 
             listWifi.setOnItemClickListener{
                 adapterView : AdapterView<*>?, view : View?, position : Int, id : Long ->
-                //TODO WIFI CLICKED
+                goToPassword(position)
             }
         }
+    }
+
+    private fun goToPassword(position: Int){
+        val intent = Intent(this, SetupDeviceWifiPass::class.java)
+        val wifi = ssidList[position]
+        intent.putExtra("wifi", wifi)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     private fun checkPermissions(): Boolean {
