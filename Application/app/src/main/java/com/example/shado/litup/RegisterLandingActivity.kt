@@ -25,7 +25,7 @@ class RegisterLandingActivity : AppCompatActivity() {
         var intent: Intent
 
         if (prev == "device"){
-            txt_ltitle.text = "Paring complete!"
+            txt_ltitle.text = "Pairing complete!"
             txt_ldetails.text = "The LitUp device is now linked\n" +
                     "with your smartphone. Next step\n" +
                     "is to connect it to your home wifi"

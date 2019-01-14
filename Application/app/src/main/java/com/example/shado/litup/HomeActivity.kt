@@ -1,5 +1,6 @@
 package com.example.shado.litup
 
+import android.content.Intent
 import android.graphics.Point
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -21,10 +22,10 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         addDevice.setOnClickListener{
-
+            
         }
         device.setOnClickListener{
-
+            goToOverview()
         }
     }
 
@@ -53,5 +54,11 @@ class HomeActivity : AppCompatActivity() {
         display.getSize(size)
         breedte = size.x
         hoogte = size.y
+    }
+
+    private fun goToOverview(){
+        val intent = Intent(this, DeviceOverviewActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

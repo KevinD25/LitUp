@@ -55,7 +55,7 @@ class SetupDeviceWifiPass : AppCompatActivity() {
         var passwd = password
 
         //TODO Dummy data
-        var city = "Antwerpen"
+        var city = "Antwerp"
         var temp = "C"
 
         /*if (radiogroup.checkedRadioButtonId == 2131230855) {
@@ -73,7 +73,6 @@ class SetupDeviceWifiPass : AppCompatActivity() {
                 val result = URL("http://192.168.50.5?" + param).readText()
                 uiThread {
                     Log.d("Request", result)
-                    lbl_response.text = result
                 }
 
             }
