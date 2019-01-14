@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser : FirebaseUser
+    private var firebaseToken : String? = null
     private var currentUserInfo : User? = null
 
     private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
@@ -63,15 +64,12 @@ class MainActivity : AppCompatActivity() {
             token.addOnCompleteListener {
                 result ->
                     if(result.isSuccessful){
-                        var firebaseToken = result.result?.token
+                        firebaseToken = result.result?.token
                         Log.d(TAG, firebaseToken)
                         service.getUser("Bearer " + firebaseToken, currentUser.uid).subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
                                 {result -> setUser(result)},
                                 {error -> Log.e(TAG, error.message)})
-                    }
-                    else if (result.isCanceled){
-                        Toast.makeText(this, "failed getting user info", Toast.LENGTH_SHORT).show()
                     }
                     result.addOnFailureListener {
                         Toast.makeText(this, "failed getting user info", Toast.LENGTH_SHORT).show()
@@ -100,6 +98,16 @@ class MainActivity : AppCompatActivity() {
     fun setUser(user : User){
         currentUserInfo = user
         Log.d(TAG, user.Id.toString())
+        if(currentUserInfo?.PersonalSettings != null){
+            disposable = service.getSettings("Bearer " + firebaseToken, currentUserInfo?.PersonalSettings?.Id!!.toInt()).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                    { result ->
+                        if(result.DeviceName.equals("") || result.DeviceName != null)
+                            Log.d("Devicename", result.DeviceName)
+                    },
+                    { error -> Log.e(TAG, error.message) }
+            )
+        }
     }
 
     override fun onBackPressed() {
