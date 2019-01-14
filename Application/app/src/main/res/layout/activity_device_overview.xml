@@ -124,25 +124,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+<<<<<<< HEAD
                     android:weightSum="17">
+=======
+                    android:weightSum="11">
+>>>>>>> 6c72a99c0ae11c8b498530269d39b3a99a9e9b18
 
                     <TextView
                         android:id="@+id/textView10"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+<<<<<<< HEAD
                         android:layout_weight="4"
                         android:text="Hour"
                         android:textSize="16dp"
                         android:gravity="center"/>
+=======
+                        android:layout_weight="2"
+                        android:text="Hour"
+                        android:textAlignment="center"
+                        android:textSize="16dp" />
+>>>>>>> 6c72a99c0ae11c8b498530269d39b3a99a9e9b18
 
                     <TextView
                         android:id="@+id/textView17"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+<<<<<<< HEAD
                         android:layout_weight="4"
                         android:text="Minute"
                         android:textSize="16dp"
                         android:gravity="center"/>
+=======
+                        android:layout_weight="3"
+                        android:text="Minute"
+                        android:textAlignment="center"
+                        android:textSize="16dp" />
+>>>>>>> 6c72a99c0ae11c8b498530269d39b3a99a9e9b18
 
                     <Space
                         android:layout_width="0dp"
@@ -153,19 +171,33 @@
                         android:id="@+id/textView18"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+<<<<<<< HEAD
                         android:layout_weight="4"
                         android:text="Hour"
                         android:textSize="16dp"
                         android:gravity="center"/>
+=======
+                        android:layout_weight="2"
+                        android:text="Hour"
+                        android:textAlignment="center"
+                        android:textSize="16dp" />
+>>>>>>> 6c72a99c0ae11c8b498530269d39b3a99a9e9b18
 
                     <TextView
                         android:id="@+id/textView19"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+<<<<<<< HEAD
                         android:layout_weight="4"
                         android:text="Minute"
                         android:textSize="16dp"
                         android:gravity="center"/>
+=======
+                        android:layout_weight="3"
+                        android:text="Minute"
+                        android:textAlignment="center"
+                        android:textSize="16dp" />
+>>>>>>> 6c72a99c0ae11c8b498530269d39b3a99a9e9b18
                 </LinearLayout>
 
                 <LinearLayout
@@ -175,21 +207,21 @@
                     android:orientation="horizontal"
                     android:weightSum="17">
 
-                    <Spinner
+                    <NumberPicker
                         android:id="@+id/spnHourFrom"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="4" />
 
-                    <Spinner
+                    <NumberPicker
                         android:id="@+id/spnMinuteFrom"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="4" />
 
                     <TextView
                         android:id="@+id/textView20"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
@@ -198,15 +230,15 @@
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
-                    <Spinner
+                    <NumberPicker
                         android:id="@+id/spnHourTill"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="4" />
 
-                    <Spinner
+                    <NumberPicker
                         android:id="@+id/spnMinuteTill"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="4" />
                 </LinearLayout>
