@@ -30,7 +30,7 @@ for f in list:
 			temp = " " + temp
 	print(temp)
 	line.write(str(temp).encode("UTF-8"))
-#	time.sleep(playtime)
+	time.sleep(playtime)
 	print(f["time"])
 	weather = f["weather"]
 	if weather == "Rain":
