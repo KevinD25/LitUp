@@ -257,13 +257,13 @@ class DeviceOverviewActivity : AppCompatActivity() {
         val btnSave : Button = customView.findViewById(R.id.btn_save_deviceName)
 
         //TODO UITLEZEN HUIDIGE NAAM
-        deviceName.setText("")
+        deviceName.setText(txt_deviceName.text.toString())
 
         btnSave.setOnClickListener {
             if(!deviceName.text.trim().equals("")){
                 changedDeviceName = deviceName.text.trim().toString()
 
-                // TODO SEND
+                txt_deviceName.text = changedDeviceName
                 popupWindow.dismiss()
             }
         }
