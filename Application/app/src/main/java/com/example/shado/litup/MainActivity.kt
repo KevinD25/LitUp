@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -61,12 +62,20 @@ class MainActivity : AppCompatActivity() {
             var token = currentUser.getIdToken(true)
             token.addOnCompleteListener {
                 result ->
-                    var firebaseToken = result.result?.token
-                    Log.d(TAG, firebaseToken)
-                    service.getUser("Bearer " + firebaseToken, currentUser.uid).subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                            {result -> setUser(result)},
-                            {error -> Log.e(TAG, error.message)})
+                    if(result.isSuccessful){
+                        var firebaseToken = result.result?.token
+                        Log.d(TAG, firebaseToken)
+                        service.getUser("Bearer " + firebaseToken, currentUser.uid).subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                                {result -> setUser(result)},
+                                {error -> Log.e(TAG, error.message)})
+                    }
+                    else if (result.isCanceled){
+                        Toast.makeText(this, "failed getting user info", Toast.LENGTH_SHORT).show()
+                    }
+                    result.addOnFailureListener {
+                        Toast.makeText(this, "failed getting user info", Toast.LENGTH_SHORT).show()
+                    }
             }
         }
         else
