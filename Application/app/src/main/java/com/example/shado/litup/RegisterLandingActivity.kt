@@ -39,8 +39,8 @@ class RegisterLandingActivity : AppCompatActivity() {
             txt_ltitle.text = "Home network connected!"
             txt_ldetails.text = "The LitUp device is now\n" +
                     "connected to your home network.\n" +
-                    "Just a few more step and the\n" +
-                    "setup is complete."
+                    "You can change the settings\n" +
+                    "in the device settings."
             btn_setup.text = "Continue"
             btn_setup.setOnClickListener {
                 intent = Intent(this, HomeActivity::class.java)
