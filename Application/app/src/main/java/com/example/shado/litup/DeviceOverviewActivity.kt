@@ -8,12 +8,14 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.text.format.Formatter
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.util.Log
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import com.example.shado.litup.Model.Settings
@@ -29,11 +31,12 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import java.net.URL
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 @Suppress("DEPRECATION")
 class DeviceOverviewActivity : AppCompatActivity() {
-    private val TAG : String = "DeviceOverviewActivity"
+    private val TAG: String = "DeviceOverviewActivity"
 
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser : FirebaseUser
@@ -44,7 +47,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
     private var deviceIp : String = "192.168.137.100"
     lateinit var settings : Settings
     private var settingsId = 0
-    var disposable : Disposable? = null
+    var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,85 +56,96 @@ class DeviceOverviewActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         var extras = intent.extras
-        if(extras != null)
+        if (extras != null)
             settingsId = (extras["settingsId"] as Number).toInt()
 
-        btnScreensaver.setOnClickListener{
+        btnScreensaver.setOnClickListener {
             goToScreensaver()
         }
 
-        seekBar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
+        val btn_save: Button = findViewById(R.id.btn_save)
+        btn_save.setOnClickListener {
+            saveSettings()
+        }
 
-            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
+        btn_C.setOnClickListener {
+            btn_F.setTextColor(resources.getColor(R.color.Black))
+            btn_C.setTextColor(resources.getColor(R.color.White))
+        }
 
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-            }
-        })
-
-
-        /*btn_test.setOnClickListener {
-            doAsync {
-                val result = URL("http://" + deviceIp + "/check").readText()
-                uiThread { Log.d(TAG, result) }
-            }
-        }*/
+        btn_F.setOnClickListener {
+            btn_F.setTextColor(resources.getColor(R.color.White))
+            btn_C.setTextColor(resources.getColor(R.color.Black))
+        }
 
         fillSpinners()
     }
 
-    fun fillSettings(settings: Settings){
+    fun fillSettings(settings: Settings) {
         this.settings = settings
-        //txt_sleep.setText(settings.SleepTime)
-        //txt_wake.setText(settings.WakeTime)
-        txt_changecity.setText(settings.Location)
-        seekbar.progress = settings.Brightness.toInt()
+        spnHourFrom.value = getTimeAt(settings.WakeTime, 1)
+        spnMinuteFrom.value = getTimeAt(settings.WakeTime, 2)
+        spnHourTill.value = getTimeAt(settings.SleepTime, 1)
+        spnMinuteTill.value = getTimeAt(settings.SleepTime, 2)
+        txt_deviceName.setText(settings.DeviceName)
+        etxtLocation.setText(settings.Location)
+        seekBar.progress = settings.Brightness.toInt()
+        if (settings.Unit == "F") {
+            btn_F.setTextColor(resources.getColor(R.color.White))
+            btn_C.setTextColor(resources.getColor(R.color.Black))
+        } else {
+            btn_F.setTextColor(resources.getColor(R.color.Black))
+            btn_C.setTextColor(resources.getColor(R.color.White))
+        }
     }
 
-    fun stringToTime(time : String){
 
+    fun getTimeAt(time: String, position: Int): Int {
+        var timeInt = 0
+        if (position == 1)
+            timeInt = time.substring(0, time.indexOf(':')).toInt()
+        else
+            timeInt = time.substring(time.indexOf(':') + 1).toInt()
+        return timeInt
     }
 
-    fun emptycheck(city: String, brightness: String, sleep: String, wake: String): Boolean{
-        return(city != "" && brightness != "" && sleep != "" && wake != "")
+    fun emptycheck(city: String, brightness: String, sleep: String, wake: String): Boolean {
+        return (city != "" && brightness != "" && sleep != "" && wake != "")
     }
 
-    private fun saveSettings(){
+    private fun saveSettings() {
         var newSettings = Settings()
-        var city = txt_changecity.text.toString()
-        if(city != null || city.equals(""))
+        var city = etxtLocation.text.toString()
+        if (city != null && !city.equals(""))
             newSettings.Location = city
-        var brightness = lbl_brightnessvalue.text.toString()
-        if(brightness != null || brightness.equals(""))
-            try{
+        var brightness = seekBar.progress.toString()
+        if (brightness != null && !brightness.equals(""))
+            try {
                 newSettings.Brightness = Integer.valueOf(brightness)
-            }catch (e : NumberFormatException){
+            } catch (e: NumberFormatException) {
                 e.printStackTrace()
             }
-        var sleepTime = txt_sleep.text.toString()
-        if(sleepTime != null || sleepTime.equals(""))
+        var sleepTime = spnHourTill.value.toString() + ":" + spnMinuteTill.value.toString()
+        if (sleepTime != null && !sleepTime.equals(""))
             newSettings.SleepTime = sleepTime
-        var wakeTime = txt_wake.text.toString()
-        if(wakeTime != null || wakeTime.equals(""))
+        var wakeTime = spnHourFrom.value.toString() + ":" + spnMinuteFrom.value.toString()
+        if (wakeTime != null && !wakeTime.equals(""))
             newSettings.WakeTime = wakeTime
-
+        var deviceName = txt_deviceName.text.toString()
+        if (deviceName != null && !deviceName.equals(""))
+            newSettings.DeviceName = deviceName
 
         disposable = service.updateSettings(settingsId, newSettings, "Bearer " + firebaseToken).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                {result -> fillSettings(result)},
-                {error -> Log.e(TAG, error.message)})
+                { result -> fillSettings(result) },
+                { error -> Log.e(TAG, error.message) })
 
         var param = "sleep=" + sleepTime + "&wake=" + wakeTime + "&city=" + city + "&brightness=" + brightness
-        if(emptycheck(city, brightness, sleepTime, wakeTime)) {
+        if (emptycheck(city, brightness, sleepTime, wakeTime)) {
             doAsync {
                 val result = URL("http://" + deviceIp + "/changesettings?" + param).readText()
                 uiThread {
                     Log.d("Request", result)
-                    //lbl_response.text = result
                     toast(result)
                 }
             }
@@ -139,13 +153,13 @@ class DeviceOverviewActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Error")
             builder.setMessage("Please fill in all the fields!")
-            builder.setPositiveButton("Ok"){dialog, which ->}
+            builder.setPositiveButton("Ok") { dialog, which -> }
             val dialog: AlertDialog = builder.create()
             dialog.show()
         }
     }
 
-    fun setIpAddress(){
+    fun setIpAddress() {
         var wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         var ip = Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
         Log.d("ip address", ip)
@@ -153,7 +167,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
         Log.d("device Ip", deviceIp)
     }
 
-    private fun goToScreensaver(){
+    private fun goToScreensaver() {
         val intent = Intent(this, CustomScreenActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -163,13 +177,12 @@ class DeviceOverviewActivity : AppCompatActivity() {
         super.onStart()
         currentUser = auth.currentUser as FirebaseUser
         var token = currentUser.getIdToken(true)
-        token.addOnCompleteListener {
-            result ->
+        token.addOnCompleteListener { result ->
             firebaseToken = result.result?.token
             Log.d(TAG, firebaseToken)
             service.getUser("Bearer " + firebaseToken, currentUser.uid).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                    {result ->
+                    { result ->
                         currentUserInfo = result
                         if (settingsId != 0)
                             disposable = service.getSettings("Bearer " + firebaseToken, settingsId).subscribeOn(Schedulers.io())
@@ -178,7 +191,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
                                     { error -> Log.e(TAG, error.message) }
                             )
                     },
-                    {error -> Log.e(TAG, error.message)})
+                    { error -> Log.e(TAG, error.message) })
         }
         setIpAddress()
     }
@@ -188,14 +201,25 @@ class DeviceOverviewActivity : AppCompatActivity() {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
-    private fun fillSpinners(){
+    private fun fillSpinners() {
         spnHourFrom.maxValue = 24
         spnHourTill.maxValue = 24
         spnMinuteFrom.maxValue = 59
         spnMinuteTill.maxValue = 59
     }
 
-    fun createPopUp(view: View, position:Int) {
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    fun onClickEdit(v: View) {
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val layoutfile: View = inflater.inflate(R.layout.popup_edit_devicename, null)
+        val view2 = layoutfile
+
+        createPopUp(view2)
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    fun createPopUp(view: View) {
 
 
         // Initialize a new instance of detailpopup window
@@ -227,10 +251,22 @@ class DeviceOverviewActivity : AppCompatActivity() {
 
         customView = popupWindow.contentView ?: return
 
+        var changedDeviceName : String = ""
 
+        val deviceName : EditText = customView.findViewById(R.id.itxt_deviceName)
+        val btnSave : Button = customView.findViewById(R.id.btn_save_deviceName)
 
+        //TODO UITLEZEN HUIDIGE NAAM
+        deviceName.setText("")
 
-        //TODO FILL EDITTEXT
+        btnSave.setOnClickListener {
+            if(!deviceName.text.trim().equals("")){
+                changedDeviceName = deviceName.text.trim().toString()
+
+                // TODO SEND
+                popupWindow.dismiss()
+            }
+        }
 
 
         popupWindow.isFocusable = true
@@ -243,7 +279,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
         }
 
         // Finally, show the detailpopup window on app
-       // TransitionManager.beginDelayedTransition(root_layout)
+        TransitionManager.beginDelayedTransition(root_layout)
         popupWindow.showAtLocation(
                 root_layout, // Location to display detailpopup window
                 Gravity.CENTER, // Exact position of layout to display detailpopup
