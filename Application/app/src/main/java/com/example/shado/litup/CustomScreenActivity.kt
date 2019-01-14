@@ -150,11 +150,8 @@ class CustomScreenActivity : AppCompatActivity() {
     fun send() {
         var colorstring: String
         colorstring = createString()
-        var wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        var ip = Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
-        Log.d("ip address", ip)
-        var deviceIp = ip.substring(0, ip.lastIndexOf('.') + 1) + "100"
-        Log.d("device Ip", deviceIp)
+
+        var deviceIp = getIpAddress()
 
         var param = "&screensaver=" + colorstring
         doAsync {
@@ -163,6 +160,15 @@ class CustomScreenActivity : AppCompatActivity() {
                 Log.d("Request", result)
             }
         }
+    }
+
+    fun getIpAddress() : String {
+        var wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        var ip = Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
+        Log.d("ip address", ip)
+        var deviceIp = ip.substring(0, ip.lastIndexOf('.') + 1) + "100"
+        Log.d("device Ip", deviceIp)
+        return deviceIp
     }
 
     fun createScreensaver() {
