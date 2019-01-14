@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://172.16.161.184/litup_api/api/";
+    private static final String BASE_URL = "http://192.168.0.207/litup_api/api/";
 
     public static Retrofit getRetrofitInstance(){
         if(retrofit == null){

@@ -39,8 +39,8 @@ class CustomScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_screen)
 
-        var buttonzone = findViewById(R.id.buttonZone) as LinearLayout
-        buttonzone.addView(getTableWithAllRowsStretchedView())
+        //var buttonzone = findViewById(R.id.buttonZone) as LinearLayout
+        buttonZone.addView(getTableWithAllRowsStretchedView())
 
         updateColorButton(mColor)
     }
@@ -90,7 +90,7 @@ class CustomScreenActivity : AppCompatActivity() {
     }
 
     private fun getScreenSize() {
-        val LL_Outer = findViewById(R.id.buttonZone) as LinearLayout
+        //val LL_Outer = findViewById(R.id.buttonZone) as LinearLayout
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
