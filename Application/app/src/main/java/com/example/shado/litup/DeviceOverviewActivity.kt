@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.text.format.Formatter
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.SeekBar
 import com.example.shado.litup.Model.Settings
 import com.example.shado.litup.Model.User
@@ -17,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_device_change_settings.*
+import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_device_overview.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
@@ -39,6 +42,9 @@ class DeviceOverviewActivity : AppCompatActivity() {
     private var settingsId = 0
     var disposable : Disposable? = null
 
+    var Hours = arrayListOf<Int>()
+    var Minutes = arrayListOf<Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_overview)
@@ -53,7 +59,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
             goToScreensaver()
         }
 
-        seekbar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
+        seekBar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
 
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 lbl_brightnessvalue.text = "$i"
@@ -66,19 +72,31 @@ class DeviceOverviewActivity : AppCompatActivity() {
             }
         })
 
+        spnHourFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                spnHourFrom.setSelection(0)
+            }
 
-        btn_test.setOnClickListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                var id = spnHourFrom.selectedItemId
+                Log.d(TAG, id.toString())
+            }
+        }
+
+        /*btn_test.setOnClickListener {
             doAsync {
                 val result = URL("http://" + deviceIp + "/check").readText()
                 uiThread { Log.d(TAG, result) }
             }
-        }
+        }*/
+
+        fillSpinners()
     }
 
     fun fillSettings(settings: Settings){
         this.settings = settings
-        txt_sleep.setText(settings.SleepTime)
-        txt_wake.setText(settings.WakeTime)
+        //txt_sleep.setText(settings.SleepTime)
+        //txt_wake.setText(settings.WakeTime)
         txt_changecity.setText(settings.Location)
         seekbar.progress = settings.Brightness.toInt()
     }
@@ -177,5 +195,20 @@ class DeviceOverviewActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    private fun fillSpinners(){
+        for (i in 0..23) {
+            Hours.add(i)
+        }
+        for(i in 0..59){
+            Minutes.add(i)
+        }
+
+        spnHourFrom.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Hours)
+        spnHourTill.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Hours)
+        spnMinuteFrom.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Minutes)
+        spnMinuteTill.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Minutes)
+
     }
 }

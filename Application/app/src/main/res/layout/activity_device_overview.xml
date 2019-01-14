@@ -172,13 +172,13 @@
                     android:weightSum="5">
 
                     <Spinner
-                        android:id="@+id/spinner2"
+                        android:id="@+id/spnHourFrom"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1" />
 
                     <Spinner
-                        android:id="@+id/spinner3"
+                        android:id="@+id/spnMinuteFrom"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1" />
@@ -195,13 +195,13 @@
                         android:textStyle="bold" />
 
                     <Spinner
-                        android:id="@+id/spinner4"
+                        android:id="@+id/spnHourTill"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1" />
 
                     <Spinner
-                        android:id="@+id/spinner5"
+                        android:id="@+id/spnMinuteTill"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1" />
