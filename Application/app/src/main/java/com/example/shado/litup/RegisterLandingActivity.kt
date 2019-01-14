@@ -43,7 +43,7 @@ class RegisterLandingActivity : AppCompatActivity() {
                     "setup is complete."
             btn_setup.text = "Continue"
             btn_setup.setOnClickListener {
-                intent = Intent(this, MainActivity::class.java)
+                intent = Intent(this, HomeActivity::class.java)
                 StartNextActivity(intent)
             }
         }
