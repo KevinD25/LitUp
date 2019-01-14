@@ -72,19 +72,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
         })
-
-
-        spnHourFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                spnHourFrom.setSelection(0)
-            }
-
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                var id = spnHourFrom.selectedItemId
-                Log.d(TAG, id.toString())
-
-            }
-        }
+        
 
         /*btn_test.setOnClickListener {
             doAsync {
