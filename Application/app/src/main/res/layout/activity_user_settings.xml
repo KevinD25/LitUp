@@ -64,12 +64,12 @@
                 android:layout_weight="8" />
 
             <ImageButton
-                android:id="@+id/btnHelp"
+                android:id="@+id/btnLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/baseline_help_white_18dp"
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent"
+                android:src="@drawable/baseline_help_white_18dp" />
 
         </LinearLayout>
 
