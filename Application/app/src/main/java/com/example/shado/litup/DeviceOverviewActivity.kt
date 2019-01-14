@@ -2,6 +2,7 @@ package com.example.shado.litup
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.wifi.WifiManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -25,6 +26,9 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import java.net.URL
+import android.widget.TextView
+
+
 
 class DeviceOverviewActivity : AppCompatActivity() {
     private val TAG : String = "DeviceOverviewActivity"
@@ -62,7 +66,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
         seekBar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
 
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                lbl_brightnessvalue.text = "$i"
+
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -80,6 +84,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 var id = spnHourFrom.selectedItemId
                 Log.d(TAG, id.toString())
+
             }
         }
 
