@@ -31,6 +31,7 @@ namespace DataLayer
             {
                 Settings s = new Settings()
                 {
+                    DeviceName = "Litup",
                     Brightness = 65,
                     WakeTime = "8:00:00",
                     SleepTime = "22:00:00",
