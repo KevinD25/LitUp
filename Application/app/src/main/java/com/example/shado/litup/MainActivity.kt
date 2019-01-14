@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser : FirebaseUser
-    private lateinit var currentUserInfo : User
+    private var currentUserInfo : User? = null
 
     private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
 
@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         btn_changesettings.setOnClickListener {
             val intent = Intent(this, ChangeSettingsActivity::class.java)
             if(currentUserInfo != null)
-                if(currentUserInfo.PersonalSettings != null)
-                    intent.putExtra("settingsId", currentUserInfo.PersonalSettings.Id)
+                if(currentUserInfo?.PersonalSettings != null)
+                    intent.putExtra("settingsId", currentUserInfo?.PersonalSettings?.Id)
             else intent.putExtra("settingsId", 0)
             startActivity(intent)
         }

@@ -27,5 +27,15 @@ namespace LitUp_API.Controllers
                 return Ok(result);
             return BadRequest("Error getting data from OpenWeather");
         }
+
+        [HttpGet]
+        [Route("{location}")]
+        public async Task<IActionResult> WeatherWithLocation(string location)
+        {
+            ReturnData result = await weatherService.forecastAntwerp(location);
+            if (result != null)
+                return Ok(result);
+            return BadRequest("Error getting data from OpenWeather");
+        }
     }
 }

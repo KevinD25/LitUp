@@ -1,7 +1,6 @@
 package com.example.shado.litup
 
 import android.content.Intent
-import android.test.mock.MockContext
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +16,6 @@ import org.junit.Before
 class RegisterUnitTest {
 
     lateinit var activity : RegisterActivity
-    val context = MockContext()
 
     @Before
     fun setup(){
