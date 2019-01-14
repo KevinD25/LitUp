@@ -1,10 +1,13 @@
 package com.example.shado.litup
 
+import android.content.Context
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
+import android.net.wifi.WifiManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.text.format.Formatter
 import android.util.Log
 import android.widget.SeekBar
 import com.google.firebase.auth.FirebaseAuth
@@ -29,6 +32,8 @@ class ChangeSettingsActivity : AppCompatActivity() {
 
     private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
 
+    private var deviceIp : String = "192.168.137.100"
+
     lateinit var settings : Settings
     private var settingsId = 0
     var disposable : Disposable? = null
@@ -38,34 +43,6 @@ class ChangeSettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_device_change_settings)
 
         auth = FirebaseAuth.getInstance()
-
-        val mDiscoveryListener = object : NsdManager.DiscoveryListener {
-            override fun onServiceFound(srv : NsdServiceInfo?) {
-                Log.d(TAG, "service found")
-                Log.d(TAG, srv.toString())
-            }
-
-            override fun onStopDiscoveryFailed(p0: String?, p1: Int) {
-                Log.d(TAG, "discovery stop failed")
-            }
-
-            override fun onStartDiscoveryFailed(p0: String?, p1: Int) {
-                Log.d(TAG, "discovery start failed")
-            }
-
-            override fun onDiscoveryStarted(p0: String?) {
-                Log.d(TAG, "discovery started")
-            }
-
-            override fun onDiscoveryStopped(p0: String?) {
-                Log.d(TAG, "discovery stopped")
-            }
-
-            override fun onServiceLost(p0: NsdServiceInfo?) {
-                Log.d(TAG, "service lost")
-            }
-
-        }
 
         var extras = intent.extras
         if(extras != null)
@@ -94,7 +71,7 @@ class ChangeSettingsActivity : AppCompatActivity() {
 
         btn_test.setOnClickListener {
             doAsync {
-                val result = URL("http://192.168.137.100/check").readText()
+                val result = URL("http://" + deviceIp + "/check").readText()
                 uiThread { Log.d(TAG, result) }
             }
         }
@@ -127,7 +104,7 @@ class ChangeSettingsActivity : AppCompatActivity() {
             var param = "sleep=" + sleepTime + "&wake=" + wakeTime + "&city=" + city + "&brightness=" + brightness
             if(emptycheck(city, brightness, sleepTime, wakeTime)) {
                 doAsync {
-                    val result = URL("http://192.168.137.60/changesettings?" + param).readText()
+                    val result = URL("http://" + deviceIp + "/changesettings?" + param).readText()
                     uiThread {
                         Log.d("Request", result)
                         //lbl_response.text = result
@@ -159,6 +136,14 @@ class ChangeSettingsActivity : AppCompatActivity() {
         return(city != "" && brightness != "" && sleep != "" && wake != "")
     }
 
+    fun setIpAddress(){
+        var wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        var ip = Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
+        Log.d("ip address", ip)
+        deviceIp = ip.substring(0, ip.lastIndexOf('.') + 1) + "100"
+        Log.d("device Ip", deviceIp)
+    }
+
     override fun onStart() {
         super.onStart()
         currentUser = auth.currentUser as FirebaseUser
@@ -180,5 +165,6 @@ class ChangeSettingsActivity : AppCompatActivity() {
                     },
                     {error -> Log.e(TAG, error.message)})
         }
+        setIpAddress()
     }
 }
