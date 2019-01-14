@@ -42,9 +42,6 @@ class DeviceOverviewActivity : AppCompatActivity() {
     private var settingsId = 0
     var disposable : Disposable? = null
 
-    var Hours = arrayListOf<Int>()
-    var Minutes = arrayListOf<Int>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_overview)
@@ -62,7 +59,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
         seekBar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
 
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                lbl_brightnessvalue.text = "$i"
+                //lbl_brightnessvalue.text = "$i"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -71,17 +68,6 @@ class DeviceOverviewActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
         })
-
-        spnHourFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                spnHourFrom.setSelection(0)
-            }
-
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                var id = spnHourFrom.selectedItemId
-                Log.d(TAG, id.toString())
-            }
-        }
 
         /*btn_test.setOnClickListener {
             doAsync {
@@ -198,17 +184,9 @@ class DeviceOverviewActivity : AppCompatActivity() {
     }
 
     private fun fillSpinners(){
-        for (i in 0..23) {
-            Hours.add(i)
-        }
-        for(i in 0..59){
-            Minutes.add(i)
-        }
-
-        spnHourFrom.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Hours)
-        spnHourTill.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Hours)
-        spnMinuteFrom.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Minutes)
-        spnMinuteTill.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Minutes)
-
+        spnHourFrom.maxValue = 24
+        spnHourTill.maxValue = 24
+        spnMinuteFrom.maxValue = 59
+        spnMinuteTill.maxValue = 59
     }
 }
