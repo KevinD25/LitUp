@@ -2,16 +2,20 @@ package com.example.shado.litup
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.net.wifi.WifiManager
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.text.format.Formatter
+import android.transition.Slide
+import android.transition.TransitionManager
 import android.util.Log
+import android.view.Gravity
 import android.view.View
-import android.widget.AdapterView
-import android.widget.SeekBar
+import android.widget.*
 import com.example.shado.litup.Model.Settings
 import com.example.shado.litup.Model.User
 import com.google.firebase.auth.FirebaseAuth
@@ -20,16 +24,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_device_change_settings.*
-import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_device_overview.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import java.net.URL
-import android.widget.TextView
 
 
-
+@Suppress("DEPRECATION")
 class DeviceOverviewActivity : AppCompatActivity() {
     private val TAG : String = "DeviceOverviewActivity"
 
@@ -37,11 +39,9 @@ class DeviceOverviewActivity : AppCompatActivity() {
     private lateinit var currentUser : FirebaseUser
     private var firebaseToken : String? = null
     private lateinit var currentUserInfo : User
-
+    lateinit var customView : View
     private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
-
     private var deviceIp : String = "192.168.137.100"
-
     lateinit var settings : Settings
     private var settingsId = 0
     var disposable : Disposable? = null
@@ -93,7 +93,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
     }
 
     fun stringToTime(time : String){
-        
+
     }
 
     fun emptycheck(city: String, brightness: String, sleep: String, wake: String): Boolean{
@@ -193,5 +193,62 @@ class DeviceOverviewActivity : AppCompatActivity() {
         spnHourTill.maxValue = 24
         spnMinuteFrom.maxValue = 59
         spnMinuteTill.maxValue = 59
+    }
+
+    fun createPopUp(view: View, position:Int) {
+
+
+        // Initialize a new instance of detailpopup window
+        val popupWindow = PopupWindow(
+                view, // Custom view to show in detailpopup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of detailpopup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+        )
+
+        // Set an elevation for the detailpopup window
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.elevation = 10.0F
+        }
+
+
+        // If API level 23 or higher then execute the code
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Create a new slide animation for detailpopup window enter transition
+            val slideIn = Slide()
+            slideIn.slideEdge = Gravity.TOP
+            popupWindow.enterTransition = slideIn
+
+            // Slide animation for detailpopup window exit transition
+            val slideOut = Slide()
+            slideOut.slideEdge = Gravity.RIGHT
+            popupWindow.exitTransition = slideOut
+
+        }
+
+        customView = popupWindow.contentView ?: return
+
+
+
+
+        //TODO FILL EDITTEXT
+
+
+        popupWindow.isFocusable = true
+
+        // Set a dismiss listener for detailpopup window
+        popupWindow.setOnDismissListener {
+            //Toast.makeText(applicationContext, "Popup closed", Toast.LENGTH_SHORT).show()
+            this.setRequestedOrientation(
+                    ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        }
+
+        // Finally, show the detailpopup window on app
+       // TransitionManager.beginDelayedTransition(root_layout)
+        popupWindow.showAtLocation(
+                root_layout, // Location to display detailpopup window
+                Gravity.CENTER, // Exact position of layout to display detailpopup
+                0, // X offset
+                0 // Y offset
+        )
     }
 }
