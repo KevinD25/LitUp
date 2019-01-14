@@ -5,6 +5,7 @@ package com.example.shado.litup
  */
 class Settings {
     private lateinit var id : Number
+    private lateinit var deviceName: String
     private lateinit var brightness: Number
     private lateinit var wake_SleepTime: String
     private lateinit var wakeTime: String
@@ -15,6 +16,10 @@ class Settings {
     var Id : Number
         get() {return id}
         set(value) {id = value}
+
+    var DeviceName : String
+        get(){return deviceName}
+        set(value) {deviceName = value}
 
     var Brightness: Number
         get() {

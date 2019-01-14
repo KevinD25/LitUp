@@ -16,6 +16,7 @@ namespace DataLayer.Model
             Unit = 'C';
         }
         public int Id { get; set; }
+        public string DeviceName { get; set; }
         public int Brightness { get; set; }
         public string WakeTime { get; set; }
         public string SleepTime { get; set; }
