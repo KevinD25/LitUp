@@ -50,7 +50,7 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun startMainactivity(){
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
