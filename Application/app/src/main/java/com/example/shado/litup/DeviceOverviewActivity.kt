@@ -2,6 +2,7 @@ package com.example.shado.litup
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.wifi.WifiManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -26,6 +27,9 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import java.net.URL
+import android.widget.TextView
+
+
 
 class DeviceOverviewActivity : AppCompatActivity() {
     private val TAG : String = "DeviceOverviewActivity"
@@ -58,10 +62,9 @@ class DeviceOverviewActivity : AppCompatActivity() {
         }
 
         val btn_save : Button = findViewById(R.id.btn_save)
-        btn_save.setOnClickListener{
+        btn_save.setOnClickListener {
             saveSettings()
         }
-
         fillSpinners()
     }
 
@@ -72,7 +75,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
         spnHourTill.value = getTimeAt(settings.SleepTime, 1)
         spnMinuteTill.value = getTimeAt(settings.SleepTime, 2)
         txt_deviceName.setText(settings.DeviceName)
-        txt_changecity.setText(settings.Location)
+        etxtLocation.setText(settings.Location)
         seekBar.progress = settings.Brightness.toInt()
     }
 
@@ -91,7 +94,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
 
     private fun saveSettings(){
         var newSettings = Settings()
-        var city = txt_changecity.text.toString()
+        var city = etxtLocation.text.toString()
         if(city != null && !city.equals(""))
             newSettings.Location = city
         var brightness = seekBar.progress.toString()
