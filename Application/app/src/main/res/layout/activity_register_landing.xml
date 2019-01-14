@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterLandingActivity">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="140dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_check"
+            android:layout_marginBottom="60dp"/>
+
+        <TextView
+            android:id="@+id/txt_ltitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Registration Complete"
+            android:textSize="18dp"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:id="@+id/txt_ldetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Welcome to the LitUp family!
+You are now ready to setup and
+configure your devices."
+            android:textSize="14dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:paddingBottom="40dp">
+
+            <Button
+                android:id="@+id/btn_setup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Setup your device"
+                android:layout_gravity="bottom"
+                android:backgroundTint="@color/customPrimary"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

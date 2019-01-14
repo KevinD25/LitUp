@@ -1,48 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.shado.litup.MainActivity">
 
-    <TextView
-        android:id="@+id/lbl_currentSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/btn_devicesetup"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_devicesetup"
-        android:text="Device setup"
-        android:layout_centerInParent="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_marginTop="10dp">
 
-    <Button
-        android:id="@+id/btn_logout"
-        android:text="logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"/>
+            <ImageButton
+                android:id="@+id/btnUserSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:src="@drawable/round_person_white_48pt_1x"
+                android:scaleType="fitCenter"
+                android:paddingTop="10dp"/>
 
-    <Button
-        android:id="@+id/btn_changesettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_devicesetup"
-        android:text="change settings"
-        android:layout_centerInParent="true"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8" />
 
-    <Button
-        android:id="@+id/btn_screensaver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_changesettings"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="2dp"
-        android:text="CUSTOM SCREENSAVER" />
+            <ImageButton
+                android:id="@+id/btnHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/baseline_help_white_18dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:paddingTop="10dp"/>
+        </LinearLayout>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/lbl_currentSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/btn_devicesetup"
+            android:layout_weight="4"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_devicesetup"
+            android:text="Device setup"
+            android:layout_centerInParent="true"
+            android:layout_weight="4"
+            android:layout_gravity="center"/>
+
+
+
+        <Button
+            android:id="@+id/btn_changesettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_devicesetup"
+            android:text="change settings"
+            android:layout_centerInParent="true"
+            android:layout_weight="4"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/btn_screensaver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_changesettings"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:text="CUSTOM SCREENSAVER"
+            android:layout_weight="4"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:text="logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="4"
+            android:layout_gravity="center"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Setup"
+            android:id="@+id/btn_setup"/>
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
