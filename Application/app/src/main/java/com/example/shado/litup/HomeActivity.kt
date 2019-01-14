@@ -45,6 +45,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
+
         device.setOnClickListener{
             val intent = Intent(this, ChangeSettingsActivity::class.java) //TODO: DeviceOverviewActivity ipv changesettings
             if(currentUserInfo != null)
@@ -83,10 +84,17 @@ class HomeActivity : AppCompatActivity() {
             disposable = service.getSettings("Bearer " + firebaseToken, currentUserInfo?.PersonalSettings?.Id!!.toInt()).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(
                     { result ->
-                        if(result.DeviceName.equals("") || result.DeviceName != null)
-                            Log.d("Devicename", result.DeviceName)
+                        if(!result.DeviceName.equals("") || result.DeviceName != null){
+                            addDevice.visibility = View.INVISIBLE
+                            device.visibility = View.VISIBLE
+                            txt_device_name.text = result.DeviceName
+                        }
                     },
-                    { error -> Log.e(TAG, error.message) }
+                    { error ->
+                        Log.e(TAG, error.message)
+                        addDevice.visibility = View.VISIBLE
+                        device.visibility = View.INVISIBLE
+                    }
             )
         }
     }
