@@ -41,12 +41,12 @@ class HomeActivity : AppCompatActivity() {
         }
 
         addDevice.setOnClickListener{
-            val intent = Intent(this, DeviceSetupActivity::class.java)
+            val intent = Intent(this, SetupDeviceLandingActivity::class.java)
             startActivity(intent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
         device.setOnClickListener{
-            val intent = Intent(this, ChangeSettingsActivity::class.java) //TODO: DeviceOverviewActivity ipv changesettings
+            val intent = Intent(this, DeviceOverviewActivity::class.java) //TODO: DeviceOverviewActivity ipv changesettings
             if(currentUserInfo != null)
                 if(currentUserInfo?.PersonalSettings != null)
                     intent.putExtra("settingsId", currentUserInfo!!.PersonalSettings.Id)
