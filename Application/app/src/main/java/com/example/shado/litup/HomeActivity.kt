@@ -22,7 +22,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         addDevice.setOnClickListener{
-            
+
         }
         device.setOnClickListener{
             goToOverview()

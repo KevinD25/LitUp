@@ -70,7 +70,7 @@ class SetupDeviceWifiPass : AppCompatActivity() {
         var param = "ssid=" + ssid + "&passwd=" + passwd + "&city=" + city + "&temp=" + temp + "&timezone=" + timezone
 
             doAsync {
-                val result = URL("http://192.168.50.5?" + param).readText()
+                val result = URL("http://192.168.50.5/setup?" + param).readText()
                 uiThread {
                     Log.d("Request", result)
                 }
