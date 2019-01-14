@@ -1,13 +1,16 @@
 package com.example.shado.litup
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.net.sip.SipSession
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.text.format.Formatter
 import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
@@ -147,11 +150,15 @@ class CustomScreenActivity : AppCompatActivity() {
     fun send() {
         var colorstring: String
         colorstring = createString()
-        val ip = "192.168.137.60"
+        var wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        var ip = Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
+        Log.d("ip address", ip)
+        var deviceIp = ip.substring(0, ip.lastIndexOf('.') + 1) + "100"
+        Log.d("device Ip", deviceIp)
 
         var param = "&screensaver=" + colorstring
         doAsync {
-            val result = URL("http://" + ip + "/screensaver?" + param).readText()
+            val result = URL("http://" + deviceIp + "/screensaver?" + param).readText()
             uiThread {
                 Log.d("Request", result)
             }
