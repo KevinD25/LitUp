@@ -17,8 +17,8 @@ namespace DataLayer
                 Settings s1 = new Settings()
                 {
                     Brightness = 50,
-                    WakeTime = "10:30:00",
-                    SleepTime = "11:00:00",
+                    WakeTime = "10:30",
+                    SleepTime = "11:00",
                     Location = "Antwerp",
                     Unit = 'C'
                 };
@@ -33,8 +33,8 @@ namespace DataLayer
                 {
                     DeviceName = "Litup",
                     Brightness = 65,
-                    WakeTime = "8:00:00",
-                    SleepTime = "22:00:00",
+                    WakeTime = "8:00",
+                    SleepTime = "22:00",
                     Location = "Antwerp",
                     Unit = 'C'
                 };
