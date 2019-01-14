@@ -27,6 +27,12 @@ class HomeActivity : AppCompatActivity() {
         device.setOnClickListener{
             goToOverview()
         }
+        btnUserSettings.setOnClickListener{
+            goToUserSettings()
+        }
+        btnHelp.setOnClickListener {
+            goToFaq()
+        }
     }
 
     private fun generateButtons(view: View){
@@ -58,6 +64,18 @@ class HomeActivity : AppCompatActivity() {
 
     private fun goToOverview(){
         val intent = Intent(this, DeviceOverviewActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    private fun goToUserSettings(){
+        val intent = Intent(this, UserSettingsActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    private fun goToFaq(){
+        val intent = Intent(this, FAQActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }

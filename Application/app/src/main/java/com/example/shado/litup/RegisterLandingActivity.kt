@@ -61,4 +61,9 @@ class RegisterLandingActivity : AppCompatActivity() {
         btn_setup.setOnClickListener{null}
         //finish()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
 }

@@ -14,11 +14,19 @@ class SetupDeviceLandingActivity : AppCompatActivity() {
         btn_continue.setOnClickListener {
             StartNextActivity()
         }
+        btn_back.setOnClickListener{
+            onBackPressed()
+        }
     }
 
     private fun StartNextActivity(){
         val intent = Intent(this, SetupDeviceActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

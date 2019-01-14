@@ -47,7 +47,7 @@ class SetupDeviceWifiActivity : AppCompatActivity() {
 
         val btnBack : Button = findViewById(R.id.btn_back)
         btnBack.setOnClickListener {
-           super.onBackPressed()
+           onBackPressed()
         }
 
         wifiManager = this.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager

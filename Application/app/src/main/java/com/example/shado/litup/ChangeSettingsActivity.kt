@@ -111,7 +111,6 @@ class ChangeSettingsActivity : AppCompatActivity() {
                         //lbl_response.text = result
                         toast(result)
                     }
-
                 }
             } else {
                 val builder = AlertDialog.Builder(this)

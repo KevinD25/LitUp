@@ -18,7 +18,6 @@ class SetupDeviceWifiPass : AppCompatActivity() {
 
     var password : String = ""
     var wifi : String = ""
-    lateinit var wifiManager: WifiManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +25,9 @@ class SetupDeviceWifiPass : AppCompatActivity() {
 
         btn_next.setOnClickListener {
             checkPassword()
+        }
+        btn_back.setOnClickListener{
+            onBackPressed()
         }
 
         wifi = intent.getStringExtra("wifi")
@@ -74,8 +76,11 @@ class SetupDeviceWifiPass : AppCompatActivity() {
                 uiThread {
                     Log.d("Request", result)
                 }
-
             }
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

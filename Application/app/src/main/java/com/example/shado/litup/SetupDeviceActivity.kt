@@ -51,7 +51,7 @@ class SetupDeviceActivity : AppCompatActivity() {
 
         val btnBack : Button = findViewById(R.id.btn_back)
         btnBack.setOnClickListener {
-            super.onBackPressed()
+            onBackPressed()
         }
 
         wifiManager = this.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
@@ -119,8 +119,6 @@ class SetupDeviceActivity : AppCompatActivity() {
 
         fillList()
     }
-
-
 
     private fun fillList(){
         if(ssidList.size > 0 ){
