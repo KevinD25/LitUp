@@ -30,6 +30,8 @@ namespace BusinessLayer
             Settings s_old = litUpContext.Settings.Find(id);
             if (s_old != null)
             {
+                if (newSettings.DeviceName != null || newSettings.DeviceName != "")
+                    s_old.DeviceName = newSettings.DeviceName;
                 if (newSettings.Brightness != 0)
                     s_old.Brightness = newSettings.Brightness;
                 if (newSettings.Location != null || newSettings.Location != "")
