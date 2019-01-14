@@ -28,9 +28,10 @@ else
 	sudo systemctl daemon-reload
 	sudo systemctl stop dhcpcd.service
 	sudo ip addr flush dev wlan0
+	sleep 1
 	sudo systemctl start dhcpcd.service
 	sudo systemctl restart networking.service
 	sleep 1
 	echo $(wpa_cli -i "wlan0" status | grep 'ip_address')
-	#sudo python /home/pi/Documents/School/apvalley-1819-litup/RaspberryPi/APIcall.py
+	sudo python /home/pi/Documents/School/apvalley-1819-litup/RaspberryPi/APIcall.py
 fi
