@@ -59,12 +59,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SetupDeviceActivity" />
-        <activity android:name=".SetupDeviceWifiActivity" />
-        <activity android:name=".SetupDeviceWifiPass" />
-        <activity android:name=".UserSettingsActivity" />
-        <activity android:name=".FAQActivity" />
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".SetupDeviceActivity" >
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".SetupDeviceWifiActivity" >
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".SetupDeviceWifiPass" >
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".UserSettingsActivity" >
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".FAQActivity" >
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".HomeActivity" >
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".DeviceOverviewActivity">
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+
+        </activity>
     </application>
 
 </manifest>

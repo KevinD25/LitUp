@@ -73,7 +73,6 @@ class SetupDeviceWifiPass : AppCompatActivity() {
                 val result = URL("http://192.168.50.5/setup?" + param).readText()
                 uiThread {
                     Log.d("Request", result)
-//                    lbl_response.text = result
                 }
 
             }

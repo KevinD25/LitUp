@@ -32,12 +32,13 @@ class HomeActivity : AppCompatActivity() {
 
     var disposable : Disposable? = null
 
-    var breedte: Int = 0
-    var hoogte: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        btnUserSettings.setOnClickListener{
+            userSettings()
+        }
 
         addDevice.setOnClickListener{
             val intent = Intent(this, DeviceSetupActivity::class.java)
@@ -45,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
         device.setOnClickListener{
-            val intent = Intent(this, ChangeSettingsActivity::class.java)
+            val intent = Intent(this, ChangeSettingsActivity::class.java) //TODO: DeviceOverviewActivity ipv changesettings
             if(currentUserInfo != null)
                 if(currentUserInfo?.PersonalSettings != null)
                     intent.putExtra("settingsId", currentUserInfo!!.PersonalSettings.Id)
@@ -57,35 +58,14 @@ class HomeActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
     }
 
-    private fun generateButtons(view: View){
-        getScreenSize()
-        var recyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.md_recyclerview_content) as RecyclerView
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
-        recyclerView.setHasFixedSize(true)
-
-
-
-        val button_dynamic = ImageButton(this)
-        // setting layout_width and layout_height using layout parameters
-        button_dynamic.layoutParams = LinearLayout.LayoutParams(breedte/4, breedte + (breedte/2) )
-        // add Button to LinearLayout
-        recyclerView.addView(button_dynamic)
-
-
-
-        //recyclerView.adapter = EnrollmentsAdapter()
-    }
-
-    private fun getScreenSize(){
-        val display = windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
-        breedte = size.x
-        hoogte = size.y
-    }
-
     private fun startLoginActivity(){
         val intent = Intent(this, StartActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    private fun userSettings(){
+        val intent = Intent(this, UserSettingsActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
