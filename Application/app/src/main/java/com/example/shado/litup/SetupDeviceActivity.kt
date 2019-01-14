@@ -134,7 +134,7 @@ class SetupDeviceActivity : AppCompatActivity() {
                 adapterView : AdapterView<*>?, view : View?, position : Int, id : Long ->
                 //TODO WIFI CLICKED
                 val ssid = ssidList[position]
-                connect("", ssid) //Password not needed
+                connect("ThisIsL1tUp", ssid) //Password not needed
             }
         }
     }
@@ -142,7 +142,7 @@ class SetupDeviceActivity : AppCompatActivity() {
     private fun connect(networkPass: String, networkSSID: String) {
         val wifiConfig = WifiConfiguration()
         wifiConfig.SSID = String.format("\"%s\"", networkSSID)
-        //wifiConfig.preSharedKey = String.format("\"%s\"", networkPass)
+        wifiConfig.preSharedKey = String.format("\"%s\"", networkPass)
 
         // remember id
         val netId = wifiManager.addNetwork(wifiConfig)
@@ -152,7 +152,7 @@ class SetupDeviceActivity : AppCompatActivity() {
 
         val conf = WifiConfiguration()
         conf.SSID = "\"\"" + networkSSID + "\"\""
-        //conf.preSharedKey = "\"" + networkPass + "\""
+        conf.preSharedKey = "\"" + networkPass + "\""
         wifiManager.addNetwork(conf)
 
         //TODO next activity
