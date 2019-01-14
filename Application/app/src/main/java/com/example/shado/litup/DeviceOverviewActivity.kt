@@ -20,6 +20,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_device_change_settings.*
 import android.widget.ArrayAdapter
+import android.widget.Button
 import kotlinx.android.synthetic.main.activity_device_overview.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
@@ -56,39 +57,32 @@ class DeviceOverviewActivity : AppCompatActivity() {
             goToScreensaver()
         }
 
-        seekBar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
-
-            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                //lbl_brightnessvalue.text = "$i"
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-            }
-        })
-
-        /*btn_test.setOnClickListener {
-            doAsync {
-                val result = URL("http://" + deviceIp + "/check").readText()
-                uiThread { Log.d(TAG, result) }
-            }
-        }*/
+        val btn_save : Button = findViewById(R.id.btn_save)
+        btn_save.setOnClickListener{
+            saveSettings()
+        }
 
         fillSpinners()
     }
 
     fun fillSettings(settings: Settings){
         this.settings = settings
-        //txt_sleep.setText(settings.SleepTime)
-        //txt_wake.setText(settings.WakeTime)
+        spnHourFrom.value = getTimeAt(settings.WakeTime, 1)
+        spnMinuteFrom.value = getTimeAt(settings.WakeTime, 2)
+        spnHourTill.value = getTimeAt(settings.SleepTime, 1)
+        spnMinuteTill.value = getTimeAt(settings.SleepTime, 2)
+        txt_deviceName.setText(settings.DeviceName)
         txt_changecity.setText(settings.Location)
-        seekbar.progress = settings.Brightness.toInt()
+        seekBar.progress = settings.Brightness.toInt()
     }
 
-    fun stringToTime(time : String){
-        
+    fun getTimeAt(time : String, position : Int) : Int {
+        var timeInt = 0
+        if(position == 1)
+            timeInt = time.substring(0, time.indexOf(':')).toInt()
+        else
+            timeInt = time.substring(time.indexOf(':') + 1).toInt()
+        return timeInt
     }
 
     fun emptycheck(city: String, brightness: String, sleep: String, wake: String): Boolean{
@@ -98,22 +92,24 @@ class DeviceOverviewActivity : AppCompatActivity() {
     private fun saveSettings(){
         var newSettings = Settings()
         var city = txt_changecity.text.toString()
-        if(city != null || city.equals(""))
+        if(city != null && !city.equals(""))
             newSettings.Location = city
-        var brightness = lbl_brightnessvalue.text.toString()
-        if(brightness != null || brightness.equals(""))
+        var brightness = seekBar.progress.toString()
+        if(brightness != null && !brightness.equals(""))
             try{
                 newSettings.Brightness = Integer.valueOf(brightness)
             }catch (e : NumberFormatException){
                 e.printStackTrace()
             }
-        var sleepTime = txt_sleep.text.toString()
-        if(sleepTime != null || sleepTime.equals(""))
+        var sleepTime = spnHourTill.value.toString() + ":" + spnMinuteTill.value.toString()
+        if(sleepTime != null && !sleepTime.equals(""))
             newSettings.SleepTime = sleepTime
-        var wakeTime = txt_wake.text.toString()
-        if(wakeTime != null || wakeTime.equals(""))
+        var wakeTime = spnHourFrom.value.toString() + ":" + spnMinuteFrom.value.toString()
+        if(wakeTime != null && !wakeTime.equals(""))
             newSettings.WakeTime = wakeTime
-
+        var deviceName = txt_deviceName.text.toString()
+        if(deviceName != null && !deviceName.equals(""))
+            newSettings.DeviceName = deviceName
 
         disposable = service.updateSettings(settingsId, newSettings, "Bearer " + firebaseToken).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
@@ -126,7 +122,6 @@ class DeviceOverviewActivity : AppCompatActivity() {
                 val result = URL("http://" + deviceIp + "/changesettings?" + param).readText()
                 uiThread {
                     Log.d("Request", result)
-                    //lbl_response.text = result
                     toast(result)
                 }
             }
