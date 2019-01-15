@@ -157,6 +157,7 @@ class DeviceOverviewActivity : AppCompatActivity() {
             val dialog: AlertDialog = builder.create()
             dialog.show()
         }
+        onBackPressed()
     }
 
     fun setIpAddress() {
