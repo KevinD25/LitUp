@@ -10,8 +10,8 @@ namespace DataLayer.Model
         public Settings()
         {
             Brightness = 50;
-            WakeTime = "8:00:00";
-            SleepTime = "22:00:00";
+            WakeTime = "8:00";
+            SleepTime = "22:00";
             Location = "Antwerp";
             Unit = 'C';
         }
