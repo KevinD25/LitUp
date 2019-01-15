@@ -3,9 +3,27 @@ package com.example.shado.litup
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.example.shado.litup.Model.Settings
+import com.example.shado.litup.Model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_register_landing.*
 
 class RegisterLandingActivity : AppCompatActivity() {
+    private val TAG : String = "RegisterLandingActivity"
+
+    private val service = RetrofitInstance.getRetrofitInstance().create(LitUpDataService::class.java)
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var currentUser : FirebaseUser
+    private var firebaseToken : String? = null
+    private lateinit var currentUserInfo : User
+
+    var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +67,7 @@ class RegisterLandingActivity : AppCompatActivity() {
         }
         if (prev != "device" && prev != "wifi"){
             btn_setup.setOnClickListener {
+                saveToAPI()
                 val intent = Intent(this, SetupDeviceLandingActivity::class.java)
                 StartNextActivity(intent)
             }
@@ -60,6 +79,34 @@ class RegisterLandingActivity : AppCompatActivity() {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         btn_setup.setOnClickListener{null}
         //finish()
+    }
+
+    fun saveToAPI(){
+        currentUser = auth.currentUser as FirebaseUser
+        var token = currentUser.getIdToken(true)
+        var settings = Settings()
+        settings.DeviceName = "First device"
+        settings.Location = "Antwerp"
+        settings.Brightness = 50
+        settings.WakeTime = "8:00"
+        settings.SleepTime = "22:00"
+        settings.Unit = "C"
+        token.addOnCompleteListener { result ->
+            firebaseToken = result.result?.token
+            Log.d(TAG, firebaseToken)
+            service.getUser("Bearer " + firebaseToken, currentUser.uid).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                    { result ->
+                        currentUserInfo = result
+                        if (currentUserInfo.PersonalSettings.Id != 0)
+                            disposable = service.updateSettings(currentUserInfo.PersonalSettings.Id.toInt(), settings,"Bearer " + firebaseToken).subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                                    { result -> Log.d(TAG, "Settings saved to API") },
+                                    { error -> Log.e(TAG, error.message) }
+                            )
+                    },
+                    { error -> Log.e(TAG, error.message) })
+        }
     }
 
     override fun onBackPressed() {
