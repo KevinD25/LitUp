@@ -106,7 +106,9 @@ class SetupDeviceActivity : AppCompatActivity() {
             if(scanresult.SSID.trim() != ""){
                 for(item in ssidList){
                     if (scanresult.SSID.trim().equals(item)){
-                        //TODO FILTER
+                        add = false
+                    }
+                    if(!scanresult.SSID.trim().equals("LitUp")){
                         add = false
                     }
                 }
@@ -144,14 +146,16 @@ class SetupDeviceActivity : AppCompatActivity() {
 
         // remember id
         val netId = wifiManager.addNetwork(wifiConfig)
-        wifiManager.disconnect()
-        wifiManager.enableNetwork(netId, true)
-        wifiManager.reconnect()
+
 
         val conf = WifiConfiguration()
         conf.SSID = "\"\"" + networkSSID + "\"\""
         conf.preSharedKey = "\"" + networkPass + "\""
         wifiManager.addNetwork(conf)
+
+        wifiManager.disconnect()
+        wifiManager.enableNetwork(netId, true)
+        wifiManager.reconnect()
 
         //TODO next activity
         StartNextActivity()

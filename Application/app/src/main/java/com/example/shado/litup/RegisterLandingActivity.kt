@@ -29,6 +29,8 @@ class RegisterLandingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_landing)
 
+        auth = FirebaseAuth.getInstance()
+
         LayoutFix()
 
         /*btn_setup.setOnClickListener {
@@ -61,13 +63,13 @@ class RegisterLandingActivity : AppCompatActivity() {
                     "in the device settings."
             btn_setup.text = "Continue"
             btn_setup.setOnClickListener {
+                saveToAPI()
                 intent = Intent(this, HomeActivity::class.java)
                 StartNextActivity(intent)
             }
         }
         if (prev != "device" && prev != "wifi"){
             btn_setup.setOnClickListener {
-                saveToAPI()
                 val intent = Intent(this, SetupDeviceLandingActivity::class.java)
                 StartNextActivity(intent)
             }
@@ -101,7 +103,11 @@ class RegisterLandingActivity : AppCompatActivity() {
                         if (currentUserInfo.PersonalSettings.Id != 0)
                             disposable = service.updateSettings(currentUserInfo.PersonalSettings.Id.toInt(), settings,"Bearer " + firebaseToken).subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                                    { result -> Log.d(TAG, "Settings saved to API") },
+                                    { result ->
+                                        Log.d(TAG, "Settings saved to API")
+                                        intent = Intent(this, HomeActivity::class.java)
+                                        StartNextActivity(intent)
+                                    },
                                     { error -> Log.e(TAG, error.message) }
                             )
                     },
